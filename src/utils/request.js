@@ -1,14 +1,9 @@
 import axios from 'axios'
-import {useTokenStore} from "../src/stores/token";
+import {useTokenStore} from "../stores/token";
 
 import { ElNotification , ElMessageBox, ElMessage, ElLoading } from 'element-plus'
 import errorCode from '@/utils/errorCode'
-import { tansParams, blobValidate } from '@/utils/ruoyi'
-import cache from '@/plugins/cache'
-import { saveAs } from 'file-saver'
-import useUserStore from '@/store/modules/user'
 
-let downloadLoadingInstance;
 // 是否显示重新登录
 export let isRelogin = { show: false };
 
@@ -53,9 +48,10 @@ service.interceptors.response.use(res => {
         isRelogin.show = true;
         ElMessageBox.confirm('登录状态已过期，您可以继续留在该页面，或者重新登录', '系统提示', { confirmButtonText: '重新登录', cancelButtonText: '取消', type: 'warning' }).then(() => {
           isRelogin.show = false;
-          useUserStore().logOut().then(() => {
-            location.href = '/index';
-          })
+          // TODO 触发登出效果然后跳转到登录页
+          // useUserStore().logOut().then(() => {
+          //   location.href = '/index';
+          // })
       }).catch(() => {
         isRelogin.show = false;
       });
@@ -88,32 +84,5 @@ service.interceptors.response.use(res => {
     return Promise.reject(error)
   }
 )
-
-// 通用下载方法
-export function download(url, params, filename, config) {
-  downloadLoadingInstance = ElLoading.service({ text: "正在下载数据，请稍候", background: "rgba(0, 0, 0, 0.7)", })
-  return service.post(url, params, {
-    transformRequest: [(params) => { return tansParams(params) }],
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    responseType: 'blob',
-    ...config
-  }).then(async (data) => {
-    const isBlob = blobValidate(data);
-    if (isBlob) {
-      const blob = new Blob([data])
-      saveAs(blob, filename)
-    } else {
-      const resText = await data.text();
-      const rspObj = JSON.parse(resText);
-      const errMsg = errorCode[rspObj.code] || rspObj.msg || errorCode['default']
-      ElMessage.error(errMsg);
-    }
-    downloadLoadingInstance.close();
-  }).catch((r) => {
-    console.error(r)
-    ElMessage.error('下载文件出现错误，请联系管理员！')
-    downloadLoadingInstance.close();
-  })
-}
 
 export default service

@@ -1,7 +1,7 @@
 <template>
   <div :class="'login-background linear-gradient-'+bgImgRandom">
     <div class="login-box">
-      <el-form :model="loginParam" :rules="loginRules" ref="loginParam" label-position="left" label-width="0px"
+      <el-form :model="loginParam" :rules="loginRules" ref="loginParamRef" label-position="left" label-width="0px"
                class="demo-ruleForm login-container">
         <h3 class="title">文档管理-系统登录</h3>
         <el-form-item prop="username">
@@ -25,8 +25,11 @@
 
 <script setup>
 import {ref, onMounted} from 'vue';
+import {useRouter} from 'vue-router'
+import {login} from '@/api/loginApi.js'
 
-const loginLoding = ref(false);
+const loginLoading = ref(false);
+
 const loginParam = ref({
   username: "",
   password: "",
@@ -42,14 +45,21 @@ const loginRules = {
 };
 const bgImgRandom = Math.ceil(Math.random() * 5);
 
+const loginParamRef = ref();
+
+
+const redirect = ref("/")
+
 const loginSubmit = () => {
-  loginFormRef.value.validate((valid) => {
+  loginParamRef.value.validate((valid) => {
     if (!valid) return;
     loginLoading.value = true;
-    consoleApi.userLogin(loginParam).then(() => {
-      emit('loginSuccess');
+    const param = loginParam.value;
+    login(param.username,param.password,param.code).then(() => {
       loginLoading.value = false;
+      console.log("登陆成功")
       if (redirect.value) {
+        redirect.value = '/index' // 测试用的跳转链接
         location.href = decodeURIComponent(redirect.value);
       } else {
         this.$router.back();
@@ -61,9 +71,9 @@ const loginSubmit = () => {
   });
 };
 
-const redirect = ref("/")
+
 onMounted(() => {
-  redirect.value = this.$route.query.redirect;
+  // redirect.value = this.$route.query.redirect;
 });
 
 
