@@ -1,6 +1,6 @@
 <template>
 	<div style="padding: 10px" class="home-vue">
-		<div style="max-width: 800px; margin: 0 auto">
+		<div style="  max-width: 800px; margin: 0 auto">
 			<el-tabs model-value="first">
 				<el-tab-pane :label="newsTypesMap[searchParam.newsType]" name="first">
 					<div v-if="spacePageNews.length <= 0" class="empty-news">

@@ -14,7 +14,7 @@ import Home from '@/views/home/Home.vue'
 // import Show from '@/views/page/Show.vue'
 // import Edit from '@/views/page/Edit.vue'
 //
-// import spaceManage from '@/views/space/Manage.vue'
+import spaceManage from '@/views/space/Manage.vue'
 //
 // import sharePcHome from '@/views/page/share/pc/Home.vue'
 // import sharePcView from '@/views/page/share/pc/View.vue'
@@ -33,7 +33,7 @@ let routes = [
             // {path: '/user/myInfo', name: 'WIKI-我的信息', component: MyInfo},
             // {path: '/page/show', name: 'WIKI-页面查看', component: Show},
             // {path: '/page/edit', name: 'WIKI-编辑内容', component: Edit},
-            // {path: '/space/manage', name: 'WIKI-空间管理', component: spaceManage},
+            {path: '/space/manage', name: 'WIKI-空间管理', component: spaceManage},
         ],
     },
     {

@@ -59,7 +59,6 @@ const loginSubmit = () => {
       loginLoading.value = false;
       console.log("登陆成功")
       if (redirect.value) {
-        redirect.value = '/index' // 测试用的跳转链接
         location.href = decodeURIComponent(redirect.value);
       } else {
         this.$router.back();

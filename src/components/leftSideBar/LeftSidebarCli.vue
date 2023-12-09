@@ -1,5 +1,28 @@
 <template>
   <div style="padding: 10px;height: 100%;box-sizing: border-box;background: #fafafa;">
+    <div>
+      <!--    头像框   -->
+      <el-row :gutter="50">
+        <el-col :span="12"></el-col>
+        <el-col :span="12"  >
+          <a-dropdown trigger="click" placement="bottom" overlayClassName="header-action-user-dropdown">
+					<span style="line-height: 60px;display:inline-block;">
+						<el-button class="hover-button" margin-bottom:15px text>
+              <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"/>
+            </el-button>
+					</span>
+            <template #overlay>
+              <a-menu>
+                <a-menu-item @click="showAbout">关于</a-menu-item>
+                <a-menu-item @click="showConsole">控制台</a-menu-item>
+                <a-menu-divider/>
+                <a-menu-item @click="userSignOut">退出登录</a-menu-item>
+              </a-menu>
+            </template>
+          </a-dropdown>
+        </el-col>
+      </el-row>
+    </div>
     <div style="margin-bottom: 5px">
       <el-select :model-value="choiceSpace" filterable placeholder="选择空间" @change="spaceChangeEvents"
                  style="width: 100%">
@@ -172,3 +195,22 @@ defineExpose({searchByKeywords})
 </script>
 
 
+<style>
+.hover-button {
+  width: 50px;
+  height: 50px;
+  border: 0;
+  color: #888;
+}
+
+.hover-button:focus {
+  color: #d50a0a;
+  background: #ee1d1d;
+}
+
+.hover-button:hover {
+  color: #e70d0d;
+  background: #b21111;
+}
+
+</style>

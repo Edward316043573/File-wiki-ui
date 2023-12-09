@@ -40,19 +40,6 @@
 						</template>
 					</a-dropdown>
 				</template>
-				<a-dropdown trigger="click" placement="bottom" overlayClassName="header-action-user-dropdown">
-					<span style="line-height: 60px;display:inline-block;">
-						<el-button :icon="ElIconUserFilled" class="hover-button" text></el-button>
-					</span>
-					<template #overlay>
-						<a-menu>
-							<a-menu-item @click="showAbout">关于</a-menu-item>
-							<a-menu-item @click="showConsole">控制台</a-menu-item>
-							<a-menu-divider />
-							<a-menu-item @click="userSignOut">退出登录</a-menu-item>
-						</a-menu>
-					</template>
-				</a-dropdown>
 			</div>
 		</el-col>
 	</el-row>

@@ -96,3 +96,14 @@ export const deleteUserMessage = (data) => {
         }
     });
 }
+
+export default {
+    userLogin,
+    userLogout,
+    getSelfUserInfo,
+    getUserBaseInfo,
+    userGroupList,
+    getUserMessageList,
+    readUserMessage,
+    deleteUserMessage
+}
