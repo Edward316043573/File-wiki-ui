@@ -8,7 +8,7 @@ export const login = (username, password, code) => {
     }
     return request({
         url: '/login',
-        header: {
+        headers: {
             isToken: false,
             repeatSubmit: false
         },

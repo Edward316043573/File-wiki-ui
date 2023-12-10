@@ -27,6 +27,7 @@
 import {ref, onMounted} from 'vue';
 import {useRouter} from 'vue-router'
 import {login} from '@/api/loginApi.js'
+import {useTokenStore} from '@/stores/token.js'
 
 const loginLoading = ref(false);
 
@@ -50,14 +51,17 @@ const loginParamRef = ref();
 
 const redirect = ref("/")
 
+const tokenStore = useTokenStore();
 const loginSubmit = () => {
   loginParamRef.value.validate((valid) => {
     if (!valid) return;
     loginLoading.value = true;
     const param = loginParam.value;
-    login(param.username,param.password,param.code).then(() => {
+    login(param.username,param.password,param.code).then(result => {
       loginLoading.value = false;
       console.log("登陆成功")
+      // token存入到pinia
+      tokenStore.setToken(result.data.Authorization);
       if (redirect.value) {
         location.href = decodeURIComponent(redirect.value);
       } else {
