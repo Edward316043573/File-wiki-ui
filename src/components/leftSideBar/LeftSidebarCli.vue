@@ -23,6 +23,7 @@
         </el-col>
       </el-row>
     </div>
+    
     <div style="margin-bottom: 5px">
       <el-select :model-value="choiceSpace" filterable placeholder="选择空间" @change="spaceChangeEvents"
                  style="width: 100%">
@@ -79,11 +80,13 @@
       </el-tree>
     </div>
   </div>
+  <AboutDialog v-model:visible="aboutDialogVisible"/>
 </template>
 
 <script setup>
 import {ref, defineProps, defineEmits, defineExpose} from 'vue';
 import {useRouter, useRoute} from "vue-router";
+import AboutDialog from "@/views/common/AboutDialog.vue"
 import {pageNews, pageChangeParent} from '@/api/page'
 import {useStoreDisplay} from "@/stores/wikiDisplay";
 import {useStorePageData} from "@/stores/pageData";
@@ -190,6 +193,10 @@ const handlePageDrop = (draggingNode, dropNode, dropType, ev) => {
   pageChangeParent(param).then((res) => {
     emit('doGetPageList', node.id, node)
   })
+}
+let aboutDialogVisible = ref(false);
+const showAbout = () => {
+	aboutDialogVisible.value = true;
 }
 defineExpose({searchByKeywords})
 </script>
