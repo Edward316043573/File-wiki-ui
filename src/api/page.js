@@ -459,7 +459,7 @@ export const getTemplate = (data) => {
             isToken: true,
             repeatSubmit: false
         },
-        data: Qs.stringify(data, {arrayFormat: "indices", allowDots: true})
+        data: data
     });
 }
 

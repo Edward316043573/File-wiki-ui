@@ -36,7 +36,7 @@
 				</el-table-column>
 				<el-table-column label="操作" width="220">
 					<template v-slot="scope">
-						<template v-if="userSelfInfo.id == scope.row.createUserId">
+						<template v-if="userSelfInfo.userId == scope.row.createUserId">
 							<el-button size="small" type="primary" @click="editSpaceInfo(scope.row)">编辑</el-button>
 							<el-button size="small" type="warning" @click="editSpaceAuth(scope.row)">授权</el-button>
 							<el-button size="small" type="danger" @click="deleteSpaceInfo(scope.row)">删除</el-button>

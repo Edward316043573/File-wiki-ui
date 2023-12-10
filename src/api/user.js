@@ -27,9 +27,8 @@ export const userLogout = () => {
 
 export const getSelfUserInfo = () => {
     return request({
-        url: '/user/info/selfInfo',
+        url: '/user/selfInfo',
         method: 'post',
-        data: "",
         header: {
             isToken: false,
             repeatSubmit: false
