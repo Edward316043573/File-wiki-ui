@@ -25,3 +25,10 @@ app
 app.mount('#app')
 
 pinia.use(persist);
+
+app.config.globalProperties.$hasPermission = function (permissionList, permissionCode) {
+    let code = permissionList.find((item) => {
+        return item === permissionCode;
+    });
+    return !!code
+}

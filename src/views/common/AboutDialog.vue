@@ -1,13 +1,13 @@
 <template>
 	<!--关于弹窗-->
-	<el-dialog title="关于" v-model="aboutDialogVisible" width="600px" class="about-zyplayer-doc">
+	<el-dialog title="关于" width="600px" class="about-Eddie-wiki">
 		<div class="about-content">
-			<div class="doc-name">zyplayer-doc</div>
+			<div class="doc-name">Eddie-wiki</div>
 			<div class="doc-desc">
-				<div class="slogan">专注于私有化部署的在线知识库管理平台</div>
-				<div>当前版本 {{ upgradeInfo.nowVersion || '1.0.0' }}</div>
+				<div class="slogan">知识库管理平台</div>
+				<div>当前版本 {{ '1.0.0' }}</div>
 				<div>
-					版权所有 © 2018-2023 <a target="_blank" href="https://doc.zyplayer.com">doc.zyplayer.com</a>
+					版权所有 © 2018-2023
 				</div>
 			</div>
 		</div>
@@ -15,39 +15,11 @@
 </template>
 
 <script setup>
-import {onBeforeUnmount, ref, shallowRef, watch, onMounted, defineProps, defineEmits, defineExpose} from 'vue'
-import {useRouter, useRoute} from "vue-router";
-import {systemUpgradeInfo} from '@/api/system'
-import {useStoreUserData} from "@/stores/userData";
 
-let storeUser = useStoreUserData();
-const props = defineProps({
-	visible: Boolean,
-});
-let aboutDialogVisible = ref(false);
-const emit = defineEmits(['update:visible', 'ok']);
-watch(aboutDialogVisible, () => {
-	emit('update:visible', aboutDialogVisible.value);
-});
-watch(() => props.visible, () => {
-	aboutDialogVisible.value = props.visible;
-});
-onMounted(() => {
-	aboutDialogVisible.value = props.visible;
-	checkSystemUpgrade();
-});
-let upgradeInfo = ref({});
-const checkSystemUpgrade = () => {
-	systemUpgradeInfo({}).then((json) => {
-		if (!!json.data) {
-			upgradeInfo.value = json.data;
-		}
-	});
-}
 </script>
 
 <style lang="scss">
-.about-zyplayer-doc {
+.about-Eddie-wiki {
   text-align: left;
   line-height: normal;
 

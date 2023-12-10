@@ -2,20 +2,24 @@
   <div style="padding: 10px;height: 100%;box-sizing: border-box;background: #fafafa;">
     <div>
       <!--    头像框   -->
-      <el-row :gutter="50">
-        <el-col :span="12"></el-col>
-        <el-col :span="12"  >
-          <a-dropdown trigger="click" placement="bottom" overlayClassName="header-action-user-dropdown">
-					<span style="line-height: 60px;display:inline-block;">
-						<el-button class="hover-button" margin-bottom:15px text>
-              <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"/>
+      <el-row style="margin-bottom: 1px" :gutter="30">
+        <el-col span="16">
+          <el-image style=" width: 120px; height: 50px"
+                    src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" :fit="fit"/>
+        </el-col>
+        <el-col :span="8" style="margin-left: 35px; display: flex; justify-content: flex-end">
+          <a-dropdown placement="bottom" overlayClassName="header-action-user-dropdown">
+					<span>
+						<el-button style="height: 50px; width: 50px;" text color="#f6fafe">
+              <el-avatar :src="avatarUrl"/>
             </el-button>
 					</span>
             <template #overlay>
               <a-menu>
-                <a-menu-item @click="showAbout">关于</a-menu-item>
-                <a-menu-item @click="showConsole">控制台</a-menu-item>
+                <a-menu-item @click="showUserDetail">账户设置</a-menu-item>
+                <!--                <a-menu-item v-if="this.$hasPermission(permissionList, '管理员系统权限')" @click="showConsole">管理员系统</a-menu-item>-->
                 <a-menu-divider/>
+                <a-menu-item @click="showAbout">关于</a-menu-item>
                 <a-menu-item @click="userSignOut">退出登录</a-menu-item>
               </a-menu>
             </template>
@@ -79,6 +83,7 @@
       </el-tree>
     </div>
   </div>
+  <AboutDialog v-model:visible="aboutDialogVisible"/>
 </template>
 
 <script setup>
@@ -87,6 +92,7 @@ import {useRouter, useRoute} from "vue-router";
 import {pageNews, pageChangeParent} from '@/api/page'
 import {useStoreDisplay} from "@/stores/wikiDisplay";
 import {useStorePageData} from "@/stores/pageData";
+import AboutDialog from "@/views/common/AboutDialog.vue"
 
 let emit = defineEmits(['doGetPageList', 'spaceChangeEvents', 'setNowPageId'])
 let searchKeywords = ref('');
@@ -108,7 +114,7 @@ let props = defineProps({
   readOnly: Boolean
 })
 
-
+let avatarUrl = ref("https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png")
 const assisSetCurrentKey = () => {
   emit('setNowPageId', route.query.pageId, props.readOnly)
   if (props.nowPageId) {
@@ -192,25 +198,15 @@ const handlePageDrop = (draggingNode, dropNode, dropType, ev) => {
   })
 }
 defineExpose({searchByKeywords})
+
+let aboutDialogVisible = ref(false);
+const showAbout = () => {
+  aboutDialogVisible.value = true;
+}
+
 </script>
 
 
 <style>
-.hover-button {
-  width: 50px;
-  height: 50px;
-  border: 0;
-  color: #888;
-}
-
-.hover-button:focus {
-  color: #d50a0a;
-  background: #ee1d1d;
-}
-
-.hover-button:hover {
-  color: #e70d0d;
-  background: #b21111;
-}
 
 </style>

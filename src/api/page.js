@@ -3,9 +3,9 @@ import request from '@/utils/request'
 export const pageUpdate = (data) => {
     const param = data;
     return request({
-        url: '/zyplayer-doc-wiki/page/update',
+        url: '/wiki/page/update',
         headers: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         method: 'post',
@@ -16,9 +16,9 @@ export const pageUpdate = (data) => {
 export const pageChangeParent = (data) => {
     const param = data;
     return request({
-        url: '/zyplayer-doc-wiki/page/changeParent',
+        url: '/wiki/page/changeParent',
         headers: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         method: 'post',
@@ -29,9 +29,9 @@ export const pageChangeParent = (data) => {
 export const pageList = (data) => {
     const param = data;
     return request({
-        url: '/zyplayer-doc-wiki/page/list',
+        url: '/wiki/page/list',
         headers: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         method: 'post',
@@ -42,9 +42,9 @@ export const pageList = (data) => {
 export const updatePage = (data) => {
     const param = data;
     return request({
-        url: '/zyplayer-doc-wiki/page/update',
+        url: '/wiki/page/update',
         headers: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         method: 'post',
@@ -55,9 +55,9 @@ export const updatePage = (data) => {
 export const copyPage = (data) => {
     const param = data;
     return request({
-        url: '/zyplayer-doc-wiki/page/copy',
+        url: '/wiki/page/copy',
         headers: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         method: 'post',
@@ -68,9 +68,9 @@ export const copyPage = (data) => {
 export const movePage = (data) => {
     const param = data;
     return request({
-        url: '/zyplayer-doc-wiki/page/move',
+        url: '/wiki/page/move',
         headers: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         method: 'post',
@@ -81,9 +81,9 @@ export const movePage = (data) => {
 export const renamePage = (data) => {
     const param = data;
     return request({
-        url: '/zyplayer-doc-wiki/page/rename',
+        url: '/wiki/page/rename',
         headers: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         method: 'post',
@@ -94,9 +94,9 @@ export const renamePage = (data) => {
 export const pageDetail = (data) => {
     const param = data;
     return request({
-        url: '/zyplayer-doc-wiki/page/detail',
+        url: '/wiki/page/detail',
         headers: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         method: 'post',
@@ -107,9 +107,9 @@ export const pageDetail = (data) => {
 export const pageDelete = (data) => {
     const param = data;
     return request({
-        url: '/zyplayer-doc-wiki/page/delete',
+        url: '/wiki/page/delete',
         headers: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         method: 'post',
@@ -120,9 +120,9 @@ export const pageDelete = (data) => {
 export const pageHistoryList = (data) => {
     const param = data;
     return request({
-        url: '/zyplayer-doc-wiki/page/history/list',
+        url: '/wiki/page/history/list',
         headers: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         method: 'post',
@@ -133,9 +133,9 @@ export const pageHistoryList = (data) => {
 export const pageHistoryDetail = (data) => {
     const param = data;
     return request({
-        url: '/zyplayer-doc-wiki/page/history/detail',
+        url: '/wiki/page/history/detail',
         headers: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         method: 'post',
@@ -146,9 +146,9 @@ export const pageHistoryDetail = (data) => {
 export const pageNews = (data) => {
     const param = data;
     return request({
-        url: '/zyplayer-doc-wiki/page/news',
+        url: '/wiki/page/news',
         headers: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         method: 'post',
@@ -159,9 +159,9 @@ export const pageNews = (data) => {
 export const pageSearchByEs = (data) => {
     const param = data;
     return request({
-        url: '/zyplayer-doc-wiki/page/searchByEs',
+        url: '/wiki/page/searchByEs',
         headers: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         method: 'post',
@@ -172,9 +172,9 @@ export const pageSearchByEs = (data) => {
 export const pageLock = (data) => {
     const param = data;
     return request({
-        url: '/zyplayer-doc-wiki/page/lock',
+        url: '/wiki/page/lock',
         headers: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         method: 'post',
@@ -185,9 +185,9 @@ export const pageLock = (data) => {
 export const pageUnlock = (data) => {
     const param = data;
     return request({
-        url: '/zyplayer-doc-wiki/page/unlock',
+        url: '/wiki/page/unlock',
         headers: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         method: 'post',
@@ -198,9 +198,9 @@ export const pageUnlock = (data) => {
 export const spaceFavoriteUpdate = (data) => {
     const param = data;
     return request({
-        url: '/zyplayer-doc-wiki/space/favorite/update',
+        url: '/wiki/space/favorite/update',
         headers: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         method: 'post',
@@ -211,9 +211,9 @@ export const spaceFavoriteUpdate = (data) => {
 export const spaceAuthAssign = (data) => {
     const param = data;
     return request({
-        url: '/zyplayer-doc-wiki/space/auth/assign',
+        url: '/wiki/space/auth/assign',
         headers: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         method: 'post',
@@ -224,9 +224,9 @@ export const spaceAuthAssign = (data) => {
 export const spaceAuthList = (data) => {
     const param = data;
     return request({
-        url: '/zyplayer-doc-wiki/space/auth/list',
+        url: '/wiki/space/auth/list',
         headers: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         method: 'post',
@@ -237,9 +237,9 @@ export const spaceAuthList = (data) => {
 export const spaceSettingList = (data) => {
     const param = data;
     return request({
-        url: '/zyplayer-doc-wiki/space/setting/list',
+        url: '/wiki/space/setting/list',
         headers: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         method: 'post',
@@ -250,9 +250,9 @@ export const spaceSettingList = (data) => {
 export const spaceSettingUpdate = (data) => {
     const param = data;
     return request({
-        url: '/zyplayer-doc-wiki/space/setting/update',
+        url: '/wiki/space/setting/update',
         headers: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         method: 'post',
@@ -263,9 +263,9 @@ export const spaceSettingUpdate = (data) => {
 export const spaceList = (data) => {
     const param = data;
     return request({
-        url: '/zyplayer-doc-wiki/space/list',
+        url: '/wiki/space/list',
         headers: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         method: 'post',
@@ -276,9 +276,9 @@ export const spaceList = (data) => {
 export const updateSpace = (data) => {
     const param = data;
     return request({
-        url: '/zyplayer-doc-wiki/space/update',
+        url: '/wiki/space/update',
         headers: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         method: 'post',
@@ -289,9 +289,9 @@ export const updateSpace = (data) => {
 export const getPageUserAuthList = (data) => {
     const param = data;
     return request({
-        url: '/zyplayer-doc-wiki/page/auth/list',
+        url: '/wiki/page/auth/list',
         headers: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         method: 'post',
@@ -302,9 +302,9 @@ export const getPageUserAuthList = (data) => {
 export const assignPageUserAuth = (data) => {
     const param = data;
     return request({
-        url: '/zyplayer-doc-wiki/page/auth/assign',
+        url: '/wiki/page/auth/assign',
         headers: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         method: 'post',
@@ -315,9 +315,9 @@ export const assignPageUserAuth = (data) => {
 export const deletePageFile = (data) => {
     const param = data;
     return request({
-        url: '/zyplayer-doc-wiki/page/file/delete',
+        url: '/wiki/page/file/delete',
         headers: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         method: 'post',
@@ -328,9 +328,9 @@ export const deletePageFile = (data) => {
 export const pageCommentList = (data) => {
     const param = data;
     return request({
-        url: '/zyplayer-doc-wiki/page/comment/list',
+        url: '/wiki/page/comment/list',
         headers: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         method: 'post',
@@ -341,9 +341,9 @@ export const pageCommentList = (data) => {
 export const updatePageComment = (data) => {
     const param = data;
     return request({
-        url: '/zyplayer-doc-wiki/page/comment/update',
+        url: '/wiki/page/comment/update',
         headers: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         method: 'post',
@@ -354,9 +354,9 @@ export const updatePageComment = (data) => {
 export const deletePageComment = (data) => {
     const param = data;
     return request({
-        url: '/zyplayer-doc-wiki/page/comment/delete',
+        url: '/wiki/page/comment/delete',
         headers: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         method: 'post',
@@ -367,9 +367,9 @@ export const deletePageComment = (data) => {
 export const pageZanList = (data) => {
     const param = data;
     return request({
-        url: '/zyplayer-doc-wiki/page/zan/list',
+        url: '/wiki/page/zan/list',
         headers: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         method: 'post',
@@ -380,9 +380,9 @@ export const pageZanList = (data) => {
 export const updatePageZan = (data) => {
     const param = data;
     return request({
-        url: '/zyplayer-doc-wiki/page/zan/update',
+        url: '/wiki/page/zan/update',
         headers: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         method: 'post',
@@ -393,9 +393,9 @@ export const updatePageZan = (data) => {
 export const openPageDetail = (data) => {
     const param = data;
     return request({
-        url: '/zyplayer-doc-wiki/open-api/page/detail',
+        url: '/wiki/open-api/page/detail',
         headers: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         method: 'post',
@@ -405,10 +405,10 @@ export const openPageDetail = (data) => {
 
 export const openPageList = (data) => {
     return request({
-        url: '/zyplayer-doc-wiki/open-api/page/list',
+        url: '/wiki/open-api/page/list',
         method: 'post',
         header: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         data
@@ -417,10 +417,10 @@ export const openPageList = (data) => {
 
 export const openSpaceInfo = (data) => {
     return request({
-        url: '/zyplayer-doc-wiki/open-api/space/info',
+        url: '/wiki/open-api/space/info',
         method: 'post',
         header: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         data
@@ -429,10 +429,10 @@ export const openSpaceInfo = (data) => {
 
 export const openPageNews = (data) => {
     return request({
-        url: '/zyplayer-doc-wiki/open-api/page/news',
+        url: '/wiki/open-api/page/news',
         method: 'post',
         header: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         data
@@ -441,10 +441,10 @@ export const openPageNews = (data) => {
 
 export const addTemplate = (data) => {
     return request({
-        url: '/zyplayer-doc-wiki/template/add',
+        url: '/wiki/template/add',
         method: 'post',
         header: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         data
@@ -453,10 +453,10 @@ export const addTemplate = (data) => {
 
 export const getTemplate = (data) => {
     return request({
-        url: '/zyplayer-doc-wiki/template/filterAll',
+        url: '/wiki/template/filterAll',
         method: 'post',
         header: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         data: Qs.stringify(data, {arrayFormat: "indices", allowDots: true})
@@ -465,10 +465,10 @@ export const getTemplate = (data) => {
 
 export const useTemplate = (data) => {
     return request({
-        url: '/zyplayer-doc-wiki/template/use',
+        url: '/wiki/template/use',
         method: 'post',
         header: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         data
@@ -477,10 +477,10 @@ export const useTemplate = (data) => {
 
 export const getTags = (data) => {
     return request({
-        url: '/zyplayer-doc-wiki/template/allTags',
+        url: '/wiki/template/allTags',
         method: 'post',
         header: {
-            isToken: false,
+            isToken: true,
             repeatSubmit: false
         },
         data

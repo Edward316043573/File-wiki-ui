@@ -183,10 +183,7 @@ const userSignOut = () => {
 		location.reload();
 	});
 }
-let aboutDialogVisible = ref(false);
-const showAbout = () => {
-	aboutDialogVisible.value = true;
-}
+
 const showConsole = () => {
 	window.open(import.meta.env.VITE_APP_BASE_API, '_blank')
 }
