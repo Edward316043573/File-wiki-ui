@@ -33,7 +33,7 @@
 					</span>
 					<!--标题-->
 					<el-tooltip :content="data.tags" placement="top-start" :show-after="500" v-if="data.shareStatus !== undefined">
-						<a-tag color="warning" style="margin-inline-end: 4px;padding-inline: 4px;">{{filterShareStatus(data.shareStatus)}}</a-tag>
+						<a-tag v-if="data.shareStatus!==null" color="warning" style="margin-inline-end: 4px;padding-inline: 4px;">{{filterShareStatus(data.shareStatus)}}</a-tag>
 					</el-tooltip>
 					<a-input v-if="data.renaming" v-model:value="data.name" class="rename-input" placeholder="请输入文档名称" @blur="doRename(node,data)" @click.stop/>
 					<span v-else style="vertical-align: middle;margin-right: 5px">
