@@ -72,18 +72,6 @@ export const getUserMessageList = (data) => {
     });
 }
 
-export const readUserMessage = (data) => {
-    return request({
-        url: '/user/message/read',
-        method: 'post',
-        data,
-        header: {
-            isToken: false,
-            repeatSubmit: false
-        }
-    });
-}
-
 export const deleteUserMessage = (data) => {
     return request({
         url: '/user/message/delete',
@@ -103,6 +91,5 @@ export default {
     getUserBaseInfo,
     userGroupList,
     getUserMessageList,
-    readUserMessage,
     deleteUserMessage
 }

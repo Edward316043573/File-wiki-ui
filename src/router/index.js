@@ -11,7 +11,7 @@ import layout from "@/components/layouts/index.vue";
 
 import Home from '@/views/home/Home.vue'
 // import MyInfo from '@/views/user/MyInfo.vue'
-// import Show from '@/views/page/Show.vue'
+import Show from '@/views/page/Show.vue'
 // import Edit from '@/views/page/Edit.vue'
 //
 import spaceManage from '@/views/space/Manage.vue'
@@ -31,7 +31,7 @@ let routes = [
         children: [
             {path: '/home', name: 'WIKI文档管理', component: Home},
             // {path: '/user/myInfo', name: 'WIKI-我的信息', component: MyInfo},
-            // {path: '/page/show', name: 'WIKI-页面查看', component: Show},
+            {path: '/page/show', name: 'WIKI-页面查看', component: Show},
             // {path: '/page/edit', name: 'WIKI-编辑内容', component: Edit},
             {path: '/space/manage', name: 'WIKI-空间管理', component: spaceManage},
         ],

@@ -54,7 +54,7 @@ import {
 import {onBeforeUnmount, toRefs, ref, reactive, onMounted, watch, defineProps, nextTick, defineEmits, defineExpose, computed} from 'vue';
 import {onBeforeRouteUpdate, useRouter, useRoute} from "vue-router";
 import {ElMessageBox, ElMessage} from 'element-plus'
-import {getUserMessageList, readUserMessage } from "@/api/user";
+import {getUserMessageList, readUserMessage } from "@/api/message";
 import {useStoreDisplay} from '@/stores/wikiDisplay.js'
 
 let route = useRoute();
