@@ -228,7 +228,8 @@ const handleCancel = () => {
 
 const deleteWikiPage = (share) => {
 	let msg = '确定要删除此页面及其所有子页面吗？'
-	if (share !== undefined) {
+  // TODO 检查一下这里
+	if (share !== undefined && share!= null) {
 		msg = '选中的页面是：' + filterShareStatus(share) + '删除后无法使用此模板！ 确定要删除此页面及其所有子页面吗？'
 	}
 	ElMessageBox.confirm(msg, '提示', {

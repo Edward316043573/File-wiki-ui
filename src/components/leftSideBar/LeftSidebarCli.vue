@@ -16,7 +16,7 @@
 					</span>
             <template #overlay>
               <a-menu>
-                <a-menu-item @click="showUserDetail">账户设置</a-menu-item>
+                <a-menu-item @click="showSetting">账户设置</a-menu-item>
                 <!--                <a-menu-item v-if="this.$hasPermission(permissionList, '管理员系统权限')" @click="showConsole">管理员系统</a-menu-item>-->
                 <a-menu-divider/>
                 <a-menu-item @click="showAbout">关于</a-menu-item>
@@ -126,6 +126,10 @@ const assisSetCurrentKey = () => {
 const changeWikiPageExpandedKeys = (pageId) => {
   // 展开没有触发子节点的加载，如果去加载子节点有还找不到当前的node，暂不展开
   // wikiPageExpandedKeys.value= [pageId];
+}
+
+const showSetting = () => {
+  router.push('/setting')
 }
 
 const spaceChangeEvents = (data) => {

@@ -81,8 +81,8 @@ onBeforeUnmount(() => {
 });
 const loadUserMessageList = () => {
 	getUserMessageList(userMsgParam.value).then((res) => {
-		userMessageList.value = res.data || [];
-		userMsgTotalCount.value = res.total || 0;
+		userMessageList.value = res.data.records || [];
+		userMsgTotalCount.value = res.data.total || 0;
 		notReadMessageNum.value = userMessageList.value.filter((item) => item.msgStatus === 0).length;
 	});
 }

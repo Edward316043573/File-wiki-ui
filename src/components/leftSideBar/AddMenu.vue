@@ -93,6 +93,7 @@ const createWikiByTemplate = (id) => {
 	emit('createWikiByTemplate', id)
 }
 const createWiki = (editorType, parentId) => {
+  debugger
 	if (props.choiceSpace > 0) {
 		let name = "新建文档"
 		if (editorType === 0) {

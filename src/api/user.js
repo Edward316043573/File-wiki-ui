@@ -6,8 +6,8 @@ export const userLogin = (data) => {
         url: '/login',
         method: 'post',
         data,
-        header: {
-            isToken: false,
+        headers: {
+            isToken: true,
             repeatSubmit: false
         }
     });
@@ -18,8 +18,8 @@ export const userLogout = () => {
         url: '/logout',
         method: 'post',
         data: "",
-        header: {
-            isToken: false,
+        headers: {
+            isToken: true,
             repeatSubmit: false
         }
     });
@@ -29,8 +29,8 @@ export const getSelfUserInfo = () => {
     return request({
         url: '/user/selfInfo',
         method: 'post',
-        header: {
-            isToken: false,
+        headers: {
+            isToken: true,
             repeatSubmit: false
         }
     });
@@ -41,8 +41,8 @@ export const getUserBaseInfo = (data) => {
         url: '/zyplayer-doc-wiki/common/user/base',
         method: 'post',
         data,
-        header: {
-            isToken: false,
+        headers: {
+            isToken: true,
             repeatSubmit: false
         }
     });
@@ -53,8 +53,8 @@ export const userGroupList = (data) => {
         url: '/user/group/list',
         method: 'post',
         data,
-        header: {
-            isToken: false,
+        headers: {
+            isToken: true,
             repeatSubmit: false
         }
     });
@@ -65,8 +65,8 @@ export const getUserMessageList = (data) => {
         url: '/user/message/list',
         method: 'post',
         data,
-        header: {
-            isToken: false,
+        headers: {
+            isToken: true,
             repeatSubmit: false
         }
     });
@@ -77,11 +77,43 @@ export const deleteUserMessage = (data) => {
         url: '/user/message/delete',
         method: 'post',
         data,
-        header: {
-            isToken: false,
+        headers: {
+            isToken: true,
             repeatSubmit: false
         }
     });
+}
+
+export const changeUserStatus = (data) => {
+
+}
+
+export const listUser = () => {
+
+}
+
+export const resetUserPwd = () => {
+
+}
+
+export const delUser = () => {
+
+}
+
+export const getUser = () => {
+
+}
+
+export const updateUser = () => {
+
+}
+
+export const addUser = () => {
+
+}
+
+export const deptTreeSelect = () => {
+
 }
 
 export default {

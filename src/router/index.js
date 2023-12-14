@@ -6,33 +6,41 @@ import layout from "@/components/layouts/index.vue";
 // import ShareLayout from '@/views/layout/components/ShareLayout.vue'
 // import ShareMobileLayout from '@/views/layout/components/ShareMobileLayout.vue'
 //
-// import Search from '@/views/page/Search.vue'
-// import NoAuth from '@/views/common/NoAuth.vue'
+import Search from '@/views/page/Search.vue'
+import NoAuth from '@/views/common/NoAuth.vue'
 
 import Home from '@/views/home/Home.vue'
-// import MyInfo from '@/views/user/MyInfo.vue'
+
 import Show from '@/views/page/Show.vue'
-// import Edit from '@/views/page/Edit.vue'
+import Edit from '@/views/page/Edit.vue'
 //
 import spaceManage from '@/views/space/Manage.vue'
 //
 // import sharePcHome from '@/views/page/share/pc/Home.vue'
 // import sharePcView from '@/views/page/share/pc/View.vue'
 // import shareMobileView from '@/views/page/share/mobile/View.vue'
+
+// 用户设置
+import setting from '@/views/setting/index.vue'
+import userInfo from '@/views/setting/UserInfo.vue'
+import MenuSetting from'@/views/setting/menu/index.vue'
+import RoleSetting from'@/views/setting/role/index.vue'
+import UserSetting from'@/views/setting/user/index.vue'
+
+
 // 定义路由关系
 let routes = [
     {path: '/', redirect: '/home'},
-    // {path: '/page/search', name: 'WIKI-全局搜索', component: Search},
-    // {path: '/common/noAuth', name: 'WIKI-没有权限', component: NoAuth},
+    {path: '/page/search', name: 'WIKI-全局搜索', component: Search},
+    {path: '/common/noAuth', name: 'WIKI-没有权限', component: NoAuth},
     {
         path: '/',
         name: '文档管理',
         component: layout,
         children: [
             {path: '/home', name: 'WIKI文档管理', component: Home},
-            // {path: '/user/myInfo', name: 'WIKI-我的信息', component: MyInfo},
             {path: '/page/show', name: 'WIKI-页面查看', component: Show},
-            // {path: '/page/edit', name: 'WIKI-编辑内容', component: Edit},
+            {path: '/page/edit', name: 'WIKI-编辑内容', component: Edit},
             {path: '/space/manage', name: 'WIKI-空间管理', component: spaceManage},
         ],
     },
@@ -41,6 +49,18 @@ let routes = [
         name: '系统登录',
         component: login,
         meta: {fullscreen: true}
+    },
+    {
+        path: '/setting',
+        name: '账户设置',
+        component: setting,
+        redirect: '/setting/userInfo',
+        children: [
+            {path: '/setting/userInfo', name: '个人信息', component: userInfo},
+            {path: '/setting/user', name: '用户管理', component: UserSetting},
+            {path: '/setting/menu', name: '菜单管理', component: MenuSetting},
+            {path: '/setting/role', name: '角色管理', component: RoleSetting}
+        ]
     },
     // {
     //     path: '/b',

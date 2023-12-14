@@ -3,7 +3,7 @@
     <div class="login-box">
       <el-form :model="loginParam" :rules="loginRules" ref="loginParamRef" label-position="left" label-width="0px"
                class="demo-ruleForm login-container">
-        <h3 class="title">文档管理-系统登录</h3>
+        <h3 class="login-title">文档管理-系统登录</h3>
         <el-form-item prop="username">
           <el-input type="text" v-model="loginParam.username" auto-complete="off" placeholder="账号"
                     @keyup.enter.native="loginSubmit"></el-input>
@@ -18,7 +18,8 @@
         </el-form-item>
       </el-form>
     </div>
-    <div class="power-by">Powered By <a target="_blank" href="https://github.com/Edward316043573/File-Wiki">Eddie-doc</a>
+    <div class="power-by">Powered By <a target="_blank"
+                                        href="https://github.com/Edward316043573/File-Wiki">Eddie-doc</a>
     </div>
   </div>
 </template>
@@ -38,10 +39,10 @@ const loginParam = ref({
 });
 const loginRules = {
   username: [
-    { required: true, message: '请输入账号', trigger: 'blur' },
+    {required: true, message: '请输入账号', trigger: 'blur'},
   ],
   password: [
-    { required: true, message: '请输入密码', trigger: 'blur' },
+    {required: true, message: '请输入密码', trigger: 'blur'},
   ]
 };
 const bgImgRandom = Math.ceil(Math.random() * 5);
@@ -57,7 +58,7 @@ const loginSubmit = () => {
     if (!valid) return;
     loginLoading.value = true;
     const param = loginParam.value;
-    login(param.username,param.password,param.code).then(result => {
+    login(param.username, param.password, param.code).then(result => {
       loginLoading.value = false;
       console.log("登陆成功")
       // token存入到pinia
@@ -95,7 +96,7 @@ onMounted(() => {
   box-shadow: 0 0 25px #cac6c6;
 }
 
-.title {
+.login-title {
   margin: 0px auto 40px auto;
   text-align: center;
   color: #505458;

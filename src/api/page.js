@@ -104,16 +104,21 @@ export const pageDetail = (data) => {
     });
 };
 
-export const pageDelete = (data) => {
-    const param = data;
+export function delDept(deptId) {
     return request({
-        url: '/wiki/page/delete',
+        url: '/system/dept/' + deptId,
+        method: 'delete'
+    })
+}
+
+export const pageDelete = (data) => {
+    return request({
+        url: '/wiki/page/delete/' + data.pageId,
         headers: {
             isToken: true,
             repeatSubmit: false
         },
-        method: 'post',
-        data: param
+        method: 'delete',
     });
 };
 
