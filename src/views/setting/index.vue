@@ -22,8 +22,10 @@
 import {useStoreDisplay} from '@/stores/wikiDisplay.js'
 import Header from './components/Header.vue'
 import LeftSideBar from './components/LeftSideBar.vue'
+import {onMounted, provide, ref} from "vue";
 
 </script>
+
 
 <style>
 html,

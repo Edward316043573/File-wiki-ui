@@ -10,27 +10,51 @@
           <a-menu>
             <a-menu-item key="1" @click="showPersonDetail">个人信息</a-menu-item>
             <a-menu-item key="2" @click="backToDashboard">返回知识库</a-menu-item>
-            <a-menu-item key="3">退出登录</a-menu-item>
+            <a-menu-item key="3" @click="userSignOut">退出登录</a-menu-item>
           </a-menu>
         </template>
-        <a-avatar :icon="avatarUrl" />
+        <a-avatar
+            size="large"
+            :src="userInfo.avatar"
+        />
       </a-popover>
     </div>
   </div>
 </template>
 
 <script setup>
-import {ref} from 'vue'
+import {ref, inject, watch, provide, onMounted} from 'vue'
 import {useRouter} from "vue-router";
-
+import {userLogout} from '@/api/user';
 const showMenu = ref(false)
-const avatarUrl = '' // 替换成自己的头像地址
 const logoUrl = '' // 替换成自己的头像地址
+
 
 const router = useRouter();
 const backToDashboard = () => {
   router.push('/home')
 }
+
+import userApi from '@/api/user'
+
+let userInfo = ref({});
+onMounted(() => {
+  getUserInfo();
+});
+
+
+const getUserInfo = () => {
+  userApi.getSelfUserInfo().then((json) => {
+    userInfo.value = json.data
+  })
+}
+
+const userSignOut = () => {
+  userLogout().then(() => {
+    location.reload();
+  });
+}
+
 </script>
 
 <style scoped>
@@ -39,7 +63,6 @@ const backToDashboard = () => {
   justify-content: space-between;
   align-items: center;
   background-color: #fff;
-  height: 64px;
   padding: 0 20px;
 }
 

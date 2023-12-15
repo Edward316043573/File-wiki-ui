@@ -28,17 +28,17 @@
     <el-table :data="tableData">
       <el-table-column type="selection" width="50" align="center"/>
       <el-table-column label="ID" type="index" align="center" />
-      <el-table-column label="角色名称" prop="userName" align="center" />
-      <el-table-column label="权限字符" prop="nickName" align="center" />
-      <el-table-column label="显示顺序" prop="email" align="center" />
+      <el-table-column label="角色名称" prop="roleName" align="center" />
+      <el-table-column label="权限字符" prop="roleKey" align="center" />
+      <el-table-column label="显示顺序" prop="roleSort" align="center" />
       <el-table-column label="状态" align="center">
         <template #default="{ row }">
-          <el-tag :type="row.status === 1 ? 'success' : 'info'">
-            {{ row.status === 1 ? '正常' : '禁用' }}
+          <el-tag :type="row.status === 0 ? 'success' : 'info'">
+            {{ row.status === 0 ? '正常' : '禁用' }}
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="创建时间" prop="creat_at" align="center" />
+      <el-table-column label="创建时间" prop="creatTime" align="center" />
       <el-table-column label="操作" align="center" width="150" class-name="small-padding fixed-width">
         <template #default="scope">
           <el-tooltip content="修改" placement="top">
@@ -56,26 +56,45 @@
         </template>
       </el-table-column>
     </el-table>
-    <Pagination
-        :pageable="page"
-        :handleSizeChange="handleSizeChange"
-        :handleCurrentChange="handleCurrentChange"
+    <pagination
+        v-show="total > 0"
+        :total="total"
+        v-model:page="page"
+        v-model:limit="limit"
+        @pagination="getUserList"
     />
     <AddOrUpdate ref="addOrUpdateRef" />
   </el-card>
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue';
-import { listUser } from '@/api/user';
-import { AddOrUpdate } from './components';
+import { reactive, ref, onMounted } from 'vue';
+import roleApi from '@/api/role';
+import AddOrUpdate from './components/add-or-update/index.vue';
+
+// 获取列表
+let tableData = ref([]);
+let total = ref(0)
+let page = ref(1)
+let limit = ref(10)
+onMounted(() => {
+  getRoleList();
+});
+const getRoleList = () => {
+  roleApi.listRole(searchForm).then((response) => {
+    tableData.value = response.data.records;
+    total = response.data.total;
+    page = response.data.current;
+  })
+}
 
 const addOrUpdateRef = ref();
-const searchForm = reactive({
+let searchForm = reactive({
   roleName: '',
   roleKey: '',
-  email: '',
-  status: ''
+  status: '',
+  page: page,
+  pageSize: limit
 });
 
 const onAddOrUpdate = (data) => {
@@ -100,6 +119,19 @@ const onDelete = () => {
           message: '取消操作'
         });
       });
+};
+
+/** 搜索按钮操作 */
+function handleQuery() {
+  searchForm.page = 1;
+  getMenuList();
+};
+
+/** 重置按钮操作 */
+function resetQuery() {
+  searchForm.roleName = '';
+  searchForm.roleKey = '';
+  searchForm.status = '';
 };
 
 </script>

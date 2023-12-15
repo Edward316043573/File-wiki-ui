@@ -17,7 +17,6 @@ export const userLogout = () => {
     return request({
         url: '/logout',
         method: 'post',
-        data: "",
         headers: {
             isToken: true,
             repeatSubmit: false
@@ -88,8 +87,16 @@ export const changeUserStatus = (data) => {
 
 }
 
-export const listUser = () => {
-
+export const listUser = (query) => {
+    return request({
+        url: '/user/list',
+        method: 'post',
+        headers: {
+            isToken: true,
+            repeatSubmit: false
+        },
+        data: query
+    })
 }
 
 export const resetUserPwd = () => {
@@ -123,5 +130,7 @@ export default {
     getUserBaseInfo,
     userGroupList,
     getUserMessageList,
-    deleteUserMessage
+    deleteUserMessage,
+    listUser
+
 }

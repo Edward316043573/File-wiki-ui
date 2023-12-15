@@ -12,15 +12,15 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button>搜索</el-button>
-          <el-button>重置</el-button>
+          <el-button @click="handleQuery">搜索</el-button>
+          <el-button @click="resetQuery">重置</el-button>
         </el-form-item>
       </div>
       <div>
         <el-form-item>
-          <el-button>新增</el-button>
+          <el-button @click="onAddOrUpdate">新增</el-button>
           <el-button>修改</el-button>
-          <el-button>删除</el-button>
+          <el-button @click="onDelete">删除</el-button>
           <el-button>导入</el-button>
           <el-button>导出</el-button>
         </el-form-item>
@@ -34,8 +34,8 @@
       <el-table-column label="组件路径" prop="component" align="center" />
       <el-table-column label="状态" align="center">
         <template #default="{ row }">
-          <el-tag :type="row.status === 1 ? 'success' : 'info'">
-            {{ row.status === 1 ? '正常' : '禁用' }}
+          <el-tag :type="row.status === 0 ? 'success' : 'info'">
+            {{ row.status === 0 ? '正常' : '禁用' }}
           </el-tag>
         </template>
       </el-table-column>
@@ -57,24 +57,44 @@
         </template>
       </el-table-column>
     </el-table>
-    <Pagination
-        :pageable="page"
-        :handleSizeChange="handleSizeChange"
-        :handleCurrentChange="handleCurrentChange"
+    <pagination
+        v-show="total > 0"
+        :total="total"
+        v-model:page="page"
+        v-model:limit="limit"
+        @pagination="getUserList"
     />
     <AddOrUpdate ref="addOrUpdateRef" />
   </el-card>
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue';
-import { listUser } from '@/api/user';
-import { AddOrUpdate } from './components';
+import { reactive, ref, onMounted } from 'vue';
+import menuApi from '@/api/menu';
+import AddOrUpdate from './components/add-or-update/index.vue';
+
+// 获取列表
+let tableData = ref([]);
+let total = ref(0)
+let page = ref(1)
+let limit = ref(10)
+onMounted(() => {
+  getMenuList();
+});
+const getMenuList = () => {
+  menuApi.listMenu(searchForm).then((response) => {
+    tableData.value = response.data.records;
+    total = response.data.total;
+    page = response.data.current;
+  })
+}
 
 const addOrUpdateRef = ref();
-const searchForm = reactive({
+let searchForm = reactive({
   menuName: '',
-  status: ''
+  status: '',
+  page: page,
+  pageSize: limit
 });
 
 const onAddOrUpdate = (data) => {
@@ -99,6 +119,18 @@ const onDelete = () => {
           message: '取消操作'
         });
       });
+};
+
+/** 搜索按钮操作 */
+function handleQuery() {
+  searchForm.page = 1;
+  getMenuList();
+};
+
+/** 重置按钮操作 */
+function resetQuery() {
+  searchForm.menuName = '';
+  searchForm.status = '';
 };
 
 </script>
