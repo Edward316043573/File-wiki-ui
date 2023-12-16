@@ -90,8 +90,9 @@
 <script setup>
 import {ref, defineProps, defineEmits, defineExpose} from 'vue';
 import {useRouter, useRoute} from "vue-router";
-import AboutDialog from "@/views/common/AboutDialog.vue"
-import {pageNews, pageChangeParent} from '@/api/page'
+import AboutDialog from "@/views/common/AboutDialog.vue";
+import {pageNews, pageChangeParent} from '@/api/page';
+import {userLogout} from "@/api/user";
 import {useStoreDisplay} from "@/stores/wikiDisplay";
 import {useStorePageData} from "@/stores/pageData";
 
@@ -148,6 +149,13 @@ const doSearchByKeywords = (queryString, callback) => {
         callback(spacePageNews)
       })
 }
+
+const userSignOut = () => {
+  userLogout().then(() => {
+    location.reload();
+  });
+}
+
 const handleSearchKeywordsSelect = (item) => {
   searchKeywords.value = ''
   router.push({path: '/page/show', query: {pageId: item.pageId}})

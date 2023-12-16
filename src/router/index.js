@@ -32,7 +32,7 @@ import UserSetting from'@/views/setting/user/index.vue'
 let routes = [
     {path: '/', redirect: '/home'},
     {path: '/page/search', name: 'WIKI-全局搜索', component: Search},
-    {path: '/common/noAuth', name: 'WIKI-没有权限', component: NoAuth},
+    {path: '/noAuth', name: 'WIKI-没有权限', component: NoAuth},
     {
         path: '/',
         name: '文档管理',

@@ -107,7 +107,7 @@ import {useStorePageData} from '@/stores/pageData.js'
 import {useStoreUserData} from '@/stores/userData.js'
 import {pageLock, pageDelete, pageList} from "@/api/page";
 import {useStoreSpaceData} from "@/stores/spaceData";
-import {userLogout} from "@/api/user";
+
 import PageAuthDialog from '@/views/page/show/PageAuthDialog.vue'
 import MobileQrScanDialog from '@/views/page/show/MobileQrScanDialog.vue'
 import AboutDialog from "@/views/common/AboutDialog.vue"
@@ -208,11 +208,7 @@ const showMobileView = () => {
     mobileScanDialogVisible.value = true;
   }
 }
-const userSignOut = () => {
-  userLogout().then(() => {
-    location.reload();
-  });
-}
+
 
 const showConsole = () => {
   window.open(import.meta.env.VITE_APP_BASE_API, '_blank')

@@ -75,7 +75,30 @@ service.interceptors.response.use(res => {
         }
     },
     error => {
+        // 未设置状态码则默认成功状态
+        const code = error.response.data.code || 200;
         console.log('err' + error)
+        if (code === 401) {
+            if (!isRelogin.show) {
+                isRelogin.show = true;
+                ElMessageBox.confirm('登录状态已过期，您可以继续留在该页面，或者重新登录', '系统提示', {
+                    confirmButtonText: '重新登录',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    isRelogin.show = false;
+                    // TODO 触发登出效果然后跳转到登录页
+                    router.push('/login')
+                }).catch(() => {
+                    isRelogin.show = false;
+                });
+            }
+            return Promise.reject('无效的会话，或者会话已过期，请重新登录。')
+        } else if (code === 403){
+            // TODO 跳转到无权限列表 微测试
+            router.push('/noAuth')
+
+        }
         let {message} = error;
         if (message == "Network Error") {
             message = "后端接口连接异常";
