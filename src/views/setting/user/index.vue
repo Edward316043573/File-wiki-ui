@@ -22,48 +22,26 @@
       </el-form-item>
       <el-form-item>
         <el-button @click="onAddOrUpdate">新增</el-button>
-        <el-button>修改</el-button>
-        <el-button @click="onDelete">删除</el-button>
-        <el-button>导入</el-button>
-        <el-button>导出</el-button>
       </el-form-item>
     </el-form>
     <el-table :data="tableData">
-      <el-table-column type="selection" width="50" align="center"/>
       <el-table-column label="ID" type="index" align="center" />
       <el-table-column label="用户名称" prop="userName" align="center" />
       <el-table-column label="用户昵称" prop="nickName" align="center" />
       <el-table-column label="用户邮箱" prop="email" align="center" />
-      <el-table-column label="手机号" prop="phone" align="center" />
-      <el-table-column label="角色" align="center">
-        <template #default="{ row }">
-          <el-tag>
-            {{ row.role === 1 ? '超级管理员' : '普通用户' }}
-          </el-tag>
-        </template>
-      </el-table-column>
+      <el-table-column label="手机号" prop="phonenumber" align="center" />
       <el-table-column label="状态" align="center">
         <template #default="{ row }">
-          <el-tag :type="row.status === 0 ? 'success' : 'info'">
-            {{ row.status === 0 ? '正常' : '禁用' }}
+          <el-tag :type="row.status === '0' ? 'success' : 'info'">
+            {{ row.status === '0' ? '正常' : '禁用' }}
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="创建时间" prop="creat_at" align="center" />
-      <el-table-column label="操作" align="center" width="150" class-name="small-padding fixed-width">
+      <el-table-column label="创建时间" prop="createTime" width="200" align="center" />
+      <el-table-column label="操作" align="center" width="300" class-name="small-padding fixed-width">
         <template #default="scope">
-          <el-tooltip content="修改" placement="top">
-            <el-button link type="primary" icon="Edit" ></el-button>
-          </el-tooltip>
-          <el-tooltip content="删除" placement="top">
-            <el-button link type="primary" icon="Delete" ></el-button>
-          </el-tooltip>
-          <el-tooltip content="重置密码" placement="top" v-if="scope.row.userId !== 1">
-            <el-button link type="primary" icon="Key" ></el-button>
-          </el-tooltip>
-          <el-tooltip content="分配角色" placement="top" v-if="scope.row.userId !== 1">
-            <el-button link type="primary" icon="CircleCheck"></el-button>
-          </el-tooltip>
+          <el-button link type="primary" icon="Edit" @click="onAddOrUpdate(scope.row)" v-hasPermi="['system:menu:edit']">修改</el-button>
+          <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['system:menu:remove']">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -74,7 +52,7 @@
         v-model:limit="limit"
         @pagination="getUserList"
     />
-    <AddOrUpdate ref="addOrUpdateRef" />
+    <AddOrUpdate ref="addOrUpdateRef" @refresh="getUserList"/>
   </el-card>
 </template>
 
@@ -82,12 +60,14 @@
 import { reactive, ref, onMounted } from 'vue';
 import userApi from '@/api/user';
 import AddOrUpdate from './components/add-or-update/index.vue';
+import { ElMessage, ElMessageBox } from 'element-plus'
 
 // 获取列表
 let tableData = ref([]);
 let total = ref(0)
 let page = ref(1)
 let limit = ref(10)
+
 onMounted(() => {
   getUserList();
 });
@@ -113,26 +93,6 @@ const onAddOrUpdate = (data) => {
   addOrUpdateRef.value.init(data);
 };
 
-const onDelete = () => {
-  ElMessageBox.confirm('您确认要删除当前项吗？', '提示', {
-    confirmButtonText: '确认',
-    cancelButtonText: '取消',
-    type: 'warning'
-  })
-      .then(() => {
-        ElMessage({
-          type: 'success',
-          message: '只是个demo！'
-        });
-      })
-      .catch(() => {
-        ElMessage({
-          type: 'info',
-          message: '取消操作'
-        });
-      });
-};
-
 /** 搜索按钮操作 */
 function handleQuery() {
   searchForm.page = 1;
@@ -146,6 +106,33 @@ function resetQuery() {
   searchForm.email= '';
   searchForm.status = '';
 };
+
+/** 删除按钮操作 */
+function handleDelete(row) {
+  ElMessageBox.confirm('确认删除该项吗？', '提示', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning',
+  })
+      .then(() => {
+        userApi.delUser(row.userId)
+            .then((response) => {
+              const code = response.code || 200;
+              if (code === 200) {
+                ElMessage.success('删除成功');
+              } else {
+                ElMessage.error('删除失败: ' + response.msg);
+              }
+            })
+            .catch((error) => {
+              ElMessage.error('删除失败：' + error.message);
+            });
+      })
+      .catch((error) => {
+        console.log(error)
+        ElMessage.warning('已取消删除' );
+      });
+}
 </script>
 
 <style lang="scss" scoped>

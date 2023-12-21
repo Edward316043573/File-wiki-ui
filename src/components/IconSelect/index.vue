@@ -24,6 +24,7 @@
 </template>
 
 <script setup>
+import {ref, reactive, nextTick, computed, onMounted} from 'vue';
 import icons from './requireIcons'
 
 const props = defineProps({

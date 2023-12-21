@@ -104,12 +104,6 @@ export const pageDetail = (data) => {
     });
 };
 
-export function delDept(deptId) {
-    return request({
-        url: '/system/dept/' + deptId,
-        method: 'delete'
-    })
-}
 
 export const pageDelete = (data) => {
     return request({

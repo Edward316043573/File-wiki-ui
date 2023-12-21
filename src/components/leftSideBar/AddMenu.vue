@@ -43,9 +43,10 @@ import {ElMessage} from 'element-plus'
 import {updatePage} from '@/api/page'
 import axios from "axios";
 import IconDocument from '@/components/base/IconDocument.vue'
+import {useTokenStore} from "../../stores/token";
 
 let router = useRouter();
-let uploadFileUrl = ref(import.meta.env.VITE_APP_BASE_API + '/zyplayer-doc-wiki/page/file/import/upload');
+let uploadFileUrl = ref(import.meta.env.VITE_APP_BASE_API + '/wiki/page/file/import/upload');
 let fileList = ref([]);
 let emit = defineEmits(['choosePageIdFunc', 'doGetPageList', 'createWikiByTemplate'])
 let props = defineProps({
@@ -54,6 +55,7 @@ let props = defineProps({
 	nowPageId: Number,
 	funcId: Number
 });
+let tokenStore = useTokenStore();
 const doAUpload = (data) => {
 	let formData = new FormData();
 	formData.append('files', data.file);
@@ -65,7 +67,7 @@ const doAUpload = (data) => {
 		url: uploadFileUrl.value,
 		method: 'post',
 		data: formData,
-		headers: {'Content-Type': 'multipart/form-data'},
+		headers: {'Content-Type': 'multipart/form-data','Authorization': tokenStore.token},
 		timeout: 10000,
 		withCredentials: true,
 	}).then((res) => {
@@ -93,7 +95,6 @@ const createWikiByTemplate = (id) => {
 	emit('createWikiByTemplate', id)
 }
 const createWiki = (editorType, parentId) => {
-  debugger
 	if (props.choiceSpace > 0) {
 		let name = "新建文档"
 		if (editorType === 0) {

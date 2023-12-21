@@ -103,20 +103,43 @@ export const resetUserPwd = () => {
 
 }
 
-export const delUser = () => {
-
+export const delUser = (data) => {
+    return request({
+        url: '/user/' + data,
+        method: 'delete',
+        headers: {
+            isToken: true,
+            repeatSubmit: false
+        },
+    })
 }
 
 export const getUser = () => {
 
 }
 
-export const updateUser = () => {
-
+export const updateUser = (data) => {
+    return request({
+        url: '/user',
+        method: 'put',
+        headers: {
+            isToken: true,
+            repeatSubmit: false
+        },
+        data: data
+    })
 }
 
-export const addUser = () => {
-
+export const addUser = (data) => {
+    return request({
+        url: '/user',
+        method: 'post',
+        headers: {
+            isToken: true,
+            repeatSubmit: false
+        },
+        data: data
+    })
 }
 
 export const deptTreeSelect = () => {
@@ -131,6 +154,7 @@ export default {
     userGroupList,
     getUserMessageList,
     deleteUserMessage,
-    listUser
+    listUser,
+    delUser
 
 }

@@ -1,11 +1,26 @@
 import request from '@/utils/request'
 
-export const addMenu = () => {
-
+export const addMenu = (data) => {
+    return request({
+        url: '/menu',
+        method: 'post',
+        headers: {
+            isToken: true,
+            repeatSubmit: false
+        },
+        data: data
+    })
 }
 
-export const delMenu = () => {
-
+export const delMenu = (data) => {
+    return request({
+        url: '/menu/' + data,
+        method: 'delete',
+        headers: {
+            isToken: true,
+            repeatSubmit: false
+        },
+    })
 }
 
 export const getMenu = () => {
@@ -24,8 +39,16 @@ export const listMenu = (query) => {
     })
 }
 
-export const updateMenu = () => {
-
+export const updateMenu = (data) => {
+    return request({
+        url: '/menu',
+        method: 'put',
+        headers: {
+            isToken: true,
+            repeatSubmit: false
+        },
+        data: data
+    })
 }
 
 export const roleMenuTreeselect = () => {

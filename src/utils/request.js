@@ -95,9 +95,7 @@ service.interceptors.response.use(res => {
             }
             return Promise.reject('无效的会话，或者会话已过期，请重新登录。')
         } else if (code === 403){
-            // TODO 跳转到无权限列表 微测试
             router.push('/noAuth')
-
         }
         let {message} = error;
         if (message == "Network Error") {
