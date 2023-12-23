@@ -72,11 +72,11 @@ const doAUpload = (data) => {
 		withCredentials: true,
 	}).then((res) => {
 		fileList.value = [];
-		if (res.data.errCode === 200) {
+		if (res.data.code === 200) {
 			ElMessage.success('导入成功');
 		}
-		if (res.data.errCode === 300) {
-			ElMessage.warning(res.data.errMsg);
+		if (res.data.code === 300) {
+			ElMessage.warning(res.data.msg);
 			ElMessage.warning('文件太多可能超时，如果是超时，请稍等后刷新查看列表~');
 		}
 		emit('doGetPageList', null);
