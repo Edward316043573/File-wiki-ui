@@ -26,7 +26,7 @@
 				</el-table>
 				<div class="page-info-box">
 					<el-pagination background
-							:current-page="userMsgParam.pageNum"
+							:current-page="userMsgParam.page"
 							:page-size="userMsgParam.pageSize"
 							:total="userMsgTotalCount"
 							layout="prev, pager, next, total"
@@ -66,7 +66,7 @@ let userMessageList = ref([]);
 let notReadMessageNum = ref(0);
 let userMessagePopVisible = ref(false);
 let userMsgTotalCount = ref(0);
-let userMsgParam = ref({sysType: 2, pageNum: 1, pageSize: 20});
+let userMsgParam = ref({sysType: 2, page: 1, pageSize: 20});
 let messageInterval;
 onMounted(() => {
 	loadUserMessageList();

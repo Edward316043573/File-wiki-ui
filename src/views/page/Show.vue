@@ -221,7 +221,7 @@ const getPageHistory = (pageId, pageNum) => {
 		pageHistoryList.value = [];
 		pageHistoryPageNum.value = 1;
 	}
-	let param = {pageId: pageId, pageNum: pageNum};
+	let param = {pageId: pageId, page: pageNum};
 	pageApi.pageHistoryList(param).then((json) => {
 		let historyList = json.data.records || [];
 		if (historyList.length <= 0) {

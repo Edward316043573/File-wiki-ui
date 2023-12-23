@@ -130,15 +130,13 @@ export const pageHistoryList = (data) => {
 };
 
 export const pageHistoryDetail = (data) => {
-    const param = data;
     return request({
-        url: '/wiki/page/history/detail',
+        url: '/wiki/page/history/detail/' + data,
         headers: {
             isToken: true,
             repeatSubmit: false
         },
         method: 'post',
-        data: param
     });
 };
 
