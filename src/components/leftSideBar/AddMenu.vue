@@ -60,9 +60,8 @@ const doAUpload = (data) => {
 	let formData = new FormData();
 	formData.append('files', data.file);
 	formData.append('pageId', props.choosePageId);
-	if (props.choosePageId === 0) {
-		formData.append('id', props.choiceSpace);
-	}
+  formData.append('spaceId', props.choiceSpace);
+
 	axios({
 		url: uploadFileUrl.value,
 		method: 'post',
@@ -76,11 +75,13 @@ const doAUpload = (data) => {
 			ElMessage.success('导入成功');
 		}
 		if (res.data.code === 300) {
-			ElMessage.warning(res.data.msg);
+			ElMessage.warning(res.msg);
 			ElMessage.warning('文件太多可能超时，如果是超时，请稍等后刷新查看列表~');
 		}
-		emit('doGetPageList', null);
-
+    emit('doGetPageList', null);
+    if (res.data.code === 500) {
+      ElMessage.error('导入失败：' + res.data.data.info);
+    }
 	}).catch((e) => {
 		fileList.value = [];
 		emit('doGetPageList', null);

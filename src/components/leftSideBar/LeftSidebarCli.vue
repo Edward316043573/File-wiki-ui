@@ -190,8 +190,14 @@ const handleNodeClick = (data) => {
   if (props.readOnly) {
     return
   }
+  // TODO 修改类型
   if (data.editorType !== 0) {
-    router.push({path: '/page/show', query: {pageId: data.id}})
+    // 如果不是html或者markdown 则
+    if (data.editorType === 1 || data.editorType === 2) {
+      router.push({path: '/page/show', query: {pageId: data.id}})
+    } else if (data.editorType === 3) {
+      router.push({path: '/office', query: {userFileId: data.id, ot: 'detail'}})
+    }
   }
 }
 const handlePageDrop = (draggingNode, dropNode, dropType, ev) => {

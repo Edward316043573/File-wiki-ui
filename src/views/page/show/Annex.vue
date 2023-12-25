@@ -47,7 +47,7 @@
 	import unitUtil from "@/assets/lib/UnitUtil";
 
 	let uploadFormData = ref({pageId: 0});
-	let uploadFileUrl = ref(import.meta.env.VITE_APP_BASE_API + '/zyplayer-doc-wiki/page/file/upload');
+	let uploadFileUrl = ref(import.meta.env.VITE_APP_BASE_API + '/wiki/page/file/upload');
 	const beforeUpload = () => {
 		uploadFormData.value.pageId = storePage.pageInfo.id;
 	}
