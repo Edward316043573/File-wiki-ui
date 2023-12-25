@@ -32,10 +32,14 @@ const initQueryParam = (to) => {
 
 
 let route = useRoute();
-
+// TODO 现在这里watch的是整个路由，完美一点就是监听路由里的userFileId和ot 目前没时间搞
 watch(route,() => {
+  // 摧毁之前的，以达成切换的目的
+  docEditor.destroyEditor()
   initQueryParam(route);
   showDocDetail();
+},{
+  deep: true
 })
 
 onMounted(() => {

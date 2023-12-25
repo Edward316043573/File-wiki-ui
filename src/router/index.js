@@ -28,7 +28,6 @@ import RoleSetting from'@/views/setting/role/index.vue'
 import UserSetting from'@/views/setting/user/index.vue'
 
 import onlyOffice from '@/components/onlyoffice/index.vue'
-// import onlyOffice from '@/components/onlyoffice/test.vue'
 
 
 // 定义路由关系
