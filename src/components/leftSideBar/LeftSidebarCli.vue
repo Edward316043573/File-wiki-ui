@@ -196,7 +196,7 @@ const handleNodeClick = (data) => {
     if (data.editorType === 1 || data.editorType === 2) {
       router.push({path: '/page/show', query: {pageId: data.id}})
     } else if (data.editorType === 3) {
-      router.push({path: '/office', query: {userFileId: data.id, ot: 'detail'}})
+      router.push({path: '/page/show/office', query: {userFileId: data.id, ot: 'detail'}})
     }
   }
 }

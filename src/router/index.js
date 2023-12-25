@@ -28,6 +28,7 @@ import RoleSetting from'@/views/setting/role/index.vue'
 import UserSetting from'@/views/setting/user/index.vue'
 
 import onlyOffice from '@/components/onlyoffice/index.vue'
+// import onlyOffice from '@/components/onlyoffice/test.vue'
 
 
 // 定义路由关系
@@ -44,7 +45,7 @@ let routes = [
             {path: '/page/show', name: 'WIKI-页面查看', component: Show},
             {path: '/page/edit', name: 'WIKI-编辑内容', component: Edit},
             {path: '/space/manage', name: 'WIKI-空间管理', component: spaceManage},
-            {path: '/office', name: '查看内容', component: onlyOffice}
+            {path: '/page/show/office', name: '查看内容', component: onlyOffice}
         ],
     },
     {

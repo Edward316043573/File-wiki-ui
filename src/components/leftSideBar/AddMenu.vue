@@ -67,7 +67,7 @@ const doAUpload = (data) => {
 		method: 'post',
 		data: formData,
 		headers: {'Content-Type': 'multipart/form-data','Authorization': tokenStore.token},
-		timeout: 10000,
+		timeout: 100000000,
 		withCredentials: true,
 	}).then((res) => {
 		fileList.value = [];
