@@ -8,7 +8,11 @@ export const downloadPDF = (data) => {
             isToken: true,
             repeatSubmit: false
         },
-        data: data
+        params:{
+            spaceId: data
+        },
+        data: data,
+        responseType: 'blob'
     })
 }
 
@@ -19,6 +23,9 @@ export const getPDFStorePath = (data) => {
         headers: {
             isToken: true,
             repeatSubmit: false
+        },
+        params:{
+          spaceId: data
         },
         data: data
     })

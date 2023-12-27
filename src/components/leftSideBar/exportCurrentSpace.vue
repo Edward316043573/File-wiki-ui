@@ -24,7 +24,6 @@ import {
 import { CloudDownloadOutlined} from '@ant-design/icons-vue';
 import fileApi from '@/api/fileApi.js'
 import {useStoreSpaceData} from "@/stores/spaceData";
-import {downloadPDF} from "../../api/fileApi";
 import { ElLoading, ElNotification  } from 'element-plus'
 
 let storeSpace = useStoreSpaceData();
@@ -52,7 +51,14 @@ const exportPDF = (flag) => {
     })
   } else if (flag ===2) {
     // 下载形式
-    fileApi.downloadPDF(storeSpace.chooseSpaceId).then(() => {
+    fileApi.downloadPDF(storeSpace.chooseSpaceId).then((res) => {
+      const url = window.URL.createObjectURL(new Blob([res], { type: 'application/pdf' }))
+      const link = document.createElement('a')
+      link.href = url
+      link.setAttribute('download', storeSpace.chooseSpaceId + '.pdf')
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
       loading.close()
       ElNotification({
         title: 'Success',
