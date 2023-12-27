@@ -59,6 +59,7 @@
           </el-tooltip>
         </el-col>
         <el-col :span="12" style="text-align: right;">
+          <slot name="exportCurrentSpace"/>
           <slot name="addMenuDir"/>
         </el-col>
       </el-row>

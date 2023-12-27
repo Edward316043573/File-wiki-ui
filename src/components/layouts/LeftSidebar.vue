@@ -8,6 +8,9 @@
 			@setNowPageId="setNowPageId"
 			@doGetPageList="doGetPageList"
 			@spaceChangeEvents="spaceChangeEvents">
+    <template v-slot:exportCurrentSpace>
+      <export-current-space/>
+    </template>
 		<template v-slot:addMenuDir>
 			<AddMenu
 					:choiceSpace="storeSpace.chooseSpaceId"
@@ -130,6 +133,7 @@ import {useStoreDisplay} from '@/stores/wikiDisplay.js'
 import {useStorePageData} from "@/stores/pageData";
 import {DownOutlined, BuildOutlined, BlockOutlined} from '@ant-design/icons-vue';
 import {useStoreSpaceData} from "@/stores/spaceData";
+import ExportCurrentSpace from "../leftSideBar/exportCurrentSpace.vue";
 
 let route = useRoute();
 let router = useRouter();
@@ -238,7 +242,8 @@ const deleteWikiPage = (share) => {
 		type: 'warning',
 	}).then(() => {
 		let param = {pageId: optionPageId.value};
-		pageDelete(param).then(() => {
+		debugger
+    pageDelete(param).then(() => {
 			ElMessage.success('已删除')
 			doGetPageList(null)
 		});
