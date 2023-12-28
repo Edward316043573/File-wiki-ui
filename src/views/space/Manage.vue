@@ -50,7 +50,7 @@
 						@current-change="handleCurrentChange"
 						:page-sizes="[10, 30, 50]"
 						:page-size="10"
-						:current-page="searchParam.pageNum"
+						:current-page="searchParam.page"
 						layout="prev, pager, next, jumper, sizes, total"
 						:total="totalCount">
 				</el-pagination>
@@ -232,14 +232,14 @@ const deleteSpaceInfo = (row) => {
 let totalCount = ref(0);
 let searchParam = ref({
 	ignoreFavorite: 1,
-	pageNum: 1,
+	page: 1,
 	pageSize: 10,
 });
 const loadSpaceList = () => {
 	spaceListLoading.value = true
 	pageApi.spaceList(searchParam.value).then((json) => {
 		spaceList.value = json.data || []
-		if (searchParam.value.pageNum === 1) {
+		if (searchParam.value.page === 1) {
 			totalCount.value = json.total;
 		}
 		setTimeout(() => (spaceListLoading.value = false), 500)
@@ -250,7 +250,7 @@ const handleSizeChange = (val) => {
 	loadSpaceList()
 }
 const handleCurrentChange = (val) => {
-	searchParam.value.pageNum = val
+	searchParam.value.page = val
 	loadSpaceList()
 }
 const wikiOnlyShowFavoriteChange = () => {
