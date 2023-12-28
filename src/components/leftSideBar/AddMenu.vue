@@ -100,27 +100,28 @@ const createWiki = async (editorType, parentId) => {
   if (props.choiceSpace > 0) {
     let name = ref("新建文档");
     if (editorType === 0) {
+      name.value = "新建文件夹"
       await new Promise((resolve, reject) => {
         Modal.confirm({
-          title: '请输入文件名',
+          title: '确认要建立文件夹吗',
+          okText: "确认",
+          cancelText: "取消",
           content: createVNode(Input, {
             modelValue: name.value,
             onchange: (val) => {
               name.value = val.target.value;
             },
-            placeholder: '请输入文件名，点击取消则默认为新建文件夹',
+            placeholder: '请输入文件名，不输入则默认为新建文件夹',
           }),
           onOk() {
             resolve();
           },
           onCancel() {
-            name.value = "新建文件夹"
-            resolve();
+            return
           },
         });
       });
       }
-    debugger
     updatePage({
       spaceId: props.choiceSpace,
       parentId: parentId,
