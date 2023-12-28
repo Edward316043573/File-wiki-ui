@@ -37,13 +37,14 @@ import {
 	Afferent as IconParkAfferent,
 	PageTemplate as IconParkPageTemplate,
 } from '@icon-park/vue-next'
-import {ref, defineProps, defineEmits} from 'vue';
+import {ref, defineProps, defineEmits, createVNode } from 'vue';
 import {useRouter} from "vue-router";
 import {ElMessage} from 'element-plus'
 import {updatePage} from '@/api/page'
 import axios from "axios";
 import IconDocument from '@/components/base/IconDocument.vue'
 import {useTokenStore} from "../../stores/token";
+import {Modal, Input, message} from 'ant-design-vue';
 
 let router = useRouter();
 let uploadFileUrl = ref(import.meta.env.VITE_APP_BASE_API + '/wiki/page/file/import/upload');
@@ -95,32 +96,51 @@ const choosePageIdFunc = (id) => {
 const createWikiByTemplate = (id) => {
 	emit('createWikiByTemplate', id)
 }
-const createWiki = (editorType, parentId) => {
-	if (props.choiceSpace > 0) {
-		let name = "新建文档"
-		if (editorType === 0) {
-			name = "新建文件夹"
-		}
-		updatePage({
-			spaceId: props.choiceSpace,
-			parentId: parentId,
-			editorType: editorType,
-			name: name,
-			content: '',
-			preview: ''
-		}).then((json) => {
-			emit('doGetPageList', null)
-			ElMessage.success('创建成功')
-			if (editorType !== 0) {
-				router.push({
-					path: '/page/edit',
-					query: {parentId: props.nowPageId.value, pageId: json.data.id}
-				})
-			}
-		})
-	} else {
-		ElMessage.warning('请先选择或创建空间')
-	}
+const createWiki = async (editorType, parentId) => {
+  if (props.choiceSpace > 0) {
+    let name = ref("新建文档");
+    if (editorType === 0) {
+      await new Promise((resolve, reject) => {
+        Modal.confirm({
+          title: '请输入文件名',
+          content: createVNode(Input, {
+            modelValue: name.value,
+            onchange: (val) => {
+              name.value = val.target.value;
+            },
+            placeholder: '请输入文件名，点击取消则默认为新建文件夹',
+          }),
+          onOk() {
+            resolve();
+          },
+          onCancel() {
+            name.value = "新建文件夹"
+            resolve();
+          },
+        });
+      });
+      }
+    debugger
+    updatePage({
+      spaceId: props.choiceSpace,
+      parentId: parentId,
+      editorType: editorType,
+      name: name.value,
+      content: '',
+      preview: ''
+    }).then((json) => {
+      emit('doGetPageList', null)
+      ElMessage.success('创建成功')
+      if (editorType !== 0) {
+        router.push({
+          path: '/page/edit',
+          query: {parentId: props.nowPageId.value, pageId: json.data.id}
+        })
+      }
+    })
+  } else {
+    ElMessage.warning('请先选择或创建空间')
+  }
 }
 </script>
 

@@ -44,15 +44,17 @@
 					</span>
 					<!--操作-->
 					<div class="page-action-box" :class="data.renaming?'renaming':''" @click.stop>
-						<AddMenu
-								:choiceSpace="storeSpace.chooseSpaceId"
-								:choosePageId="storePage.optionPageId"
-								:nowPageId="storePage.choosePageId"
-								:funcId="data.id"
-								@createWikiByTemplate="createWikiByTemplate"
-								@choosePageIdFunc="choosePageIdFunc"
-								@doGetPageList="doGetPageList"
-						/>
+            <span v-show="data.editorType === 0">
+              <AddMenu
+                  :choiceSpace="storeSpace.chooseSpaceId"
+                  :choosePageId="storePage.optionPageId"
+                  :nowPageId="storePage.choosePageId"
+                  :funcId="data.id"
+                  @createWikiByTemplate="createWikiByTemplate"
+                  @choosePageIdFunc="choosePageIdFunc"
+                  @doGetPageList="doGetPageList"
+              />
+            </span>
 						<a-dropdown :trigger="['click']" @click="choosePageIdFunc(data.id)">
 							<el-button :icon="MoreFilled" text class="page-action-dropdown-btn"></el-button>
 							<template #overlay>
