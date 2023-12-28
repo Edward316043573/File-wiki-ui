@@ -153,6 +153,13 @@ const editWiki = () => {
   // 锁定页面并进入编辑页面
   storePage.pageIsUnlock = false;
   let param = {pageId: storePage.pageInfo.id};
+  if (storePage.pageInfo.editorType === 3) {
+    ElMessage({
+      message: '无法编辑PDF文件',
+      type: 'warning',
+    })
+    return
+  }
   pageLock(param).then(() => {
     router.push({path: '/page/edit', query: {pageId: storePage.pageInfo.id}});
   });

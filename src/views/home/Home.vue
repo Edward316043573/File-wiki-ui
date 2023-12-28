@@ -66,7 +66,9 @@ const handleSizeChange = (val) => {
 }
 const showPageDetail = (row) => {
 	let nowClickPath = {pageId: row.pageId}
+  // TODO 这里没有对PDF还是普通文件进行判断
 	router.push({path: '/page/show', query: nowClickPath})
+
 }
 const handleCurrentChange = (val) => {
 	searchParam.value.pageNum = val

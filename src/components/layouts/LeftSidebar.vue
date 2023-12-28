@@ -242,7 +242,6 @@ const deleteWikiPage = (share) => {
 		type: 'warning',
 	}).then(() => {
 		let param = {pageId: optionPageId.value};
-		debugger
     pageDelete(param).then(() => {
 			ElMessage.success('已删除')
 			doGetPageList(null)
