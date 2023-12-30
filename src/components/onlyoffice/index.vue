@@ -23,7 +23,9 @@
                 :pageHistoryChoice="pageHistoryChoice"
                 :pageHistoryDetail="pageHistoryDetail"
                 @historyClickHandle="historyClickHandle"
-                @createNavigationHeading="createNavigationHeading"/>
+                @createNavigationHeading="createNavigationHeading"
+                @reloadDocument="reloadDocument"
+            />
           </el-tab-pane>
         </el-tabs>
 
@@ -325,6 +327,24 @@ const getPageHistory = (pageId, pageNum) => {
     } else {
       historyList.forEach((item) => (item.loading = 0));
       pageHistoryList.value = pageHistoryList.value.concat(historyList);
+    }
+  })
+}
+
+const reloadDocument = (url) => {
+  docEditor.destroyEditor();
+  let data = {
+    userFileId: fileInfo.value.userFileId,
+    previewUrl: url
+  }
+  previewOfficeFile(data).then((res) => {
+    if (res.code === 200) {
+      // let config = {
+      // 	...res.data.file,
+      // 	type: this.platform
+      // }
+      // config.document.permissions.edit = false //  预览模式下编辑权限为 false
+      initDocEditor(res.data.docserviceApiUrl, res.data.file)
     }
   })
 }

@@ -42,7 +42,7 @@ let props= defineProps({
 	pageHistoryChoice:Object,
 	pageHistoryDetail:String,
 })
-let emit = defineEmits(['historyClickHandle','previewPageImage','createNavigationHeading'])
+let emit = defineEmits(['historyClickHandle','previewPageImage','createNavigationHeading', 'reloadDocument'])
 
 const historyClick = (history) => {
 	if (props.pageHistoryChoice.id === history.id && !!props.pageHistoryDetail.value) {
@@ -63,7 +63,10 @@ const historyClick = (history) => {
 			history.content = json.data.content || '--';
 			if (storePage.pageInfo.editorType === 2) {
 				history.content = mavonEditor.getMarkdownIt().render(history.content);
-			}
+			} else if (storePage.pageInfo.editorType === 3){
+        // 回调onlyoffice里面的加载方法
+        emit('reloadDocument',history.content)
+      }
 			emit('historyClickHandle',history)
 			setTimeout(() => {
 				emit('previewPageImage',history)
