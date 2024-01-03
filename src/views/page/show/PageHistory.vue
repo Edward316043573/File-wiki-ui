@@ -55,7 +55,7 @@ const historyClick = (history) => {
   history.loading = 1
   pageApi.pageHistoryDetail(history.id).then((json) => {
     history.loading = 2;
-    history.content = json.data.content || '--';
+    history.content = json.data.content || '';
     if (storePage.pageInfo.editorType === 2) {
       history.content = mavonEditor.getMarkdownIt().render(history.content);
     } else if (storePage.pageInfo.editorType === 3) {
