@@ -35,6 +35,7 @@
             node-key="menuId"
             show-checkbox
             default-expand-all
+            :default-checked-keys="selectedMenuIds"
         ></el-tree>
       </el-form-item>
       <el-form-item label="备注" prop="remark">
@@ -55,7 +56,7 @@ import { ref, reactive, nextTick } from 'vue';
 import menuApi from '@/api/menu';
 import roleApi from '@/api/role';
 import {ElMessage} from "element-plus";
-
+const selectedMenuIds = ref([]);
 const emit = defineEmits(['refresh']);
 
 const open = ref(false);
@@ -230,7 +231,10 @@ function cancel() {
 const init = async (data) => {
   visible.value = true;
   nextTick(() => {
-    if (data) Object.assign(form, data);
+    if (data) {Object.assign(form, data);
+      if (data.menuIds && data.menuIds.length > 0) {
+        selectedMenuIds.value = data.menuIds;
+      }}
     getMenuList()
   })
 };
