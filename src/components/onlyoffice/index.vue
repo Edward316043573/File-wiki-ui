@@ -44,6 +44,8 @@ import {
   editOfficeFile,
   previewOfficeFile
 } from '@/api/onlyoffice.js'
+import unitUtil from '@/assets/lib/UnitUtil.js'
+import htmlUtil from '@/assets/lib/HtmlUtil.js'
 import {useStorePageData} from "@/stores/pageData";
 import {useStoreDisplay} from "@/stores/wikiDisplay";
 import PageHistory from '@/views/page/show/PageHistory.vue'
@@ -58,6 +60,8 @@ let storePage = useStorePageData();
 let docEditor = ref(null);
 let platform = ref("desktop");
 let fileInfo = ref({userFileId: 1, ot: ''});
+// 左侧导航菜单
+let navigationList = ref([]);
 // 右侧标签页
 let pageHistoryDetail = ref('');
 let pageShowDetail = ref('');
@@ -337,13 +341,8 @@ const reloadDocument = (url) => {
     userFileId: fileInfo.value.userFileId,
     previewUrl: url
   }
-  previewOfficeFile(data).then((res) => {
+  previewOfficeFile(data).then( (res) => {
     if (res.code === 200) {
-      // let config = {
-      // 	...res.data.file,
-      // 	type: this.platform
-      // }
-      // config.document.permissions.edit = false //  预览模式下编辑权限为 false
       initDocEditor(res.data.docserviceApiUrl, res.data.file)
     }
   })

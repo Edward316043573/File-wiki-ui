@@ -1,81 +1,78 @@
 <template>
-	<div class="action-tab-box">
-		<div v-if="props.pageHistoryList.length <= 0" class="action-box-empty">
-			暂无修改历史记录
-		</div>
-		<el-timeline v-else>
-			<el-timeline-item v-for="history in props.pageHistoryList">
-				<el-tag :type="props.pageHistoryChoice.id === history.id ? history.loading === 3 ? 'danger' : 'success' : 'info'"
-						class="history-item" @click="historyClick(history)">
-					<div>{{ history.createUserName }}</div>
-					<div>{{ history.createTime }}</div>
-				</el-tag>
-				<el-icon class="history-loading-status" v-show="history.loading===1">
-					<el-icon-loading/>
-				</el-icon>
-				<el-icon class="history-loading-status" v-show="history.loading===2">
-					<el-icon-circle-check/>
-				</el-icon>
-				<el-icon class="history-loading-status" v-show="history.loading===3">
-					<el-icon-circle-close/>
-				</el-icon>
-			</el-timeline-item>
-		</el-timeline>
-	</div>
+  <div class="action-tab-box">
+    <div v-if="props.pageHistoryList.length <= 0" class="action-box-empty">
+      暂无修改历史记录
+    </div>
+    <el-timeline v-else>
+      <el-timeline-item v-for="history in props.pageHistoryList">
+        <el-tag
+            :type="props.pageHistoryChoice.id === history.id ? history.loading === 3 ? 'danger' : 'success' : 'info'"
+            class="history-item" @click="historyClick(history)">
+          <div>{{ history.createUserName }}</div>
+          <div>{{ history.createTime }}</div>
+        </el-tag>
+        <el-icon class="history-loading-status" v-show="history.loading===1">
+          <el-icon-loading/>
+        </el-icon>
+        <el-icon class="history-loading-status" v-show="history.loading===2">
+          <el-icon-circle-check/>
+        </el-icon>
+        <el-icon class="history-loading-status" v-show="history.loading===3">
+          <el-icon-circle-close/>
+        </el-icon>
+      </el-timeline-item>
+    </el-timeline>
+  </div>
 </template>
 
 <script setup>
 import {
-	CircleCheck as ElIconCircleCheck,
-	CircleClose as ElIconCircleClose,
-	Loading as ElIconLoading,
+  CircleCheck as ElIconCircleCheck,
+  CircleClose as ElIconCircleClose,
+  Loading as ElIconLoading,
 } from '@element-plus/icons-vue'
 
 import pageApi from '@/api/page'
 import {mavonEditor} from "mavon-editor";
 import {ref, defineProps, defineEmits} from 'vue';
 import {useStorePageData} from "@/stores/pageData";
+import {useRouter} from "vue-router";
+
+let router = useRouter();
 let storePage = useStorePageData();
 
-let props= defineProps({
-	pageHistoryList:Array,
-	pageHistoryChoice:Object,
-	pageHistoryDetail:String,
+let props = defineProps({
+  pageHistoryList: Array,
+  pageHistoryChoice: Object,
+  pageHistoryDetail: String,
 })
-let emit = defineEmits(['historyClickHandle','previewPageImage','createNavigationHeading', 'reloadDocument'])
+let emit = defineEmits(['historyClickHandle', 'previewPageImage', 'createNavigationHeading', 'reloadDocument'])
 
 const historyClick = (history) => {
-	if (props.pageHistoryChoice.id === history.id && !!props.pageHistoryDetail.value) {
-		return;
-	}
-	// 缓存一下，但如果历史页面多了而且很大就占内存，也可以每次去拉取，先这样吧
-	if (history.content) {
-		history.loading = 2;
-		emit('historyClickHandle',history)
-		setTimeout(() => {
-			emit('previewPageImage',history)
-			emit('createNavigationHeading',history)
-		}, 500)
-	} else {
-		history.loading = 1
-		pageApi.pageHistoryDetail(history.id).then((json) => {
-			history.loading = 2;
-			history.content = json.data.content || '--';
-			if (storePage.pageInfo.editorType === 2) {
-				history.content = mavonEditor.getMarkdownIt().render(history.content);
-			} else if (storePage.pageInfo.editorType === 3){
-        // 回调onlyoffice里面的加载方法
-        emit('reloadDocument',history.content)
-      }
-			emit('historyClickHandle',history)
-			setTimeout(() => {
-				emit('previewPageImage',history)
-				emit('createNavigationHeading',history)
-			}, 500);
-		}).catch(() => {
-			history.loading = 3;
-		});
-	}
+  if (props.pageHistoryChoice.id === history.id && !!props.pageHistoryDetail.value) {
+    return;
+  }
+  history.loading = 1
+  pageApi.pageHistoryDetail(history.id).then((json) => {
+    history.loading = 2;
+    history.content = json.data.content || '--';
+    if (storePage.pageInfo.editorType === 2) {
+      history.content = mavonEditor.getMarkdownIt().render(history.content);
+    } else if (storePage.pageInfo.editorType === 3) {
+      // 回调onlyoffice里面的加载方法
+      emit('reloadDocument', history.content)
+      emit('historyClickHandle', history)
+      return
+    }
+    emit('historyClickHandle', history)
+    setTimeout(() => {
+      emit('previewPageImage', history)
+      emit('createNavigationHeading', history)
+    }, 500);
+  }).catch(() => {
+    history.loading = 3;
+  });
+
 }
 </script>
 
