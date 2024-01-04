@@ -37,19 +37,7 @@ export const getSelfUserInfo = () => {
 
 export const getUserBaseInfo = (data) => {
     return request({
-        url: '/zyplayer-doc-wiki/common/user/base',
-        method: 'post',
-        data,
-        headers: {
-            isToken: true,
-            repeatSubmit: false
-        }
-    });
-}
-
-export const userGroupList = (data) => {
-    return request({
-        url: '/user/group/list',
+        url: '/wiki/common/user/base',
         method: 'post',
         data,
         headers: {
@@ -151,7 +139,6 @@ export default {
     userLogout,
     getSelfUserInfo,
     getUserBaseInfo,
-    userGroupList,
     getUserMessageList,
     deleteUserMessage,
     listUser,

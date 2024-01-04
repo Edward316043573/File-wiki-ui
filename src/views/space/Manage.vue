@@ -60,13 +60,13 @@
 		<el-dialog title="权限管理" v-model="spaceAuthDialogVisible" width="900px" :close-on-click-modal="false">
 			<el-row>
 				<el-select v-model="spaceAuthNewGroupId" filterable placeholder="请选择分组" style="width: 750px; margin-right: 10px">
-					<el-option v-for="item in searchGroupList" :key="item.id" :label="searchGroupMap[item.id]" :value="item.id"></el-option>
+					<el-option v-for="item in searchGroupList" :key="item.roleId" :label="searchGroupMap[item.roleId]" :value="item.roleId"></el-option>
 				</el-select>
 				<el-button @click="addSpaceAuthUserGroup">添加</el-button>
 			</el-row>
 			<el-table :data="spaceAuthGroupList" border style="width: 100%; margin: 10px 0">
-				<el-table-column prop="groupId" label="分组名" width="150">
-					<template v-slot="scope">{{searchGroupMap[scope.row.groupId]}}</template>
+				<el-table-column prop="roleId" label="分组名" width="150">
+					<template v-slot="scope">{{searchGroupMap[scope.row.roleId]}}</template>
 				</el-table-column>
 				<el-table-column label="权限">
 					<template v-slot="scope">
@@ -84,7 +84,7 @@
 				</el-table-column>
 			</el-table>
 			<div style="text-align: right">
-				<el-button @click="manageUserGroup">分组管理</el-button>
+				<el-button @click="manageUserGroup">角色管理</el-button>
 				<el-button type="primary" @click="saveGroupSpaceAuth">保存配置</el-button>
 			</div>
 		</el-dialog>
@@ -105,6 +105,7 @@ import {
 } from '@element-plus/icons-vue'
 import pageApi from '@/api/page'
 import userApi from '@/api/user'
+import roleApi from '@/api/role'
 import CreateSpace from '../../components/space/CreateSpace.vue'
 import {useStoreSpaceData}from '@/stores/spaceData'
 import {useStorePageData}from '@/stores/pageData'
@@ -161,14 +162,14 @@ const addSpaceAuthUserGroup = () => {
 	}
 	if (
 		!!spaceAuthGroupList.value.find(
-			(item) => item.groupId == spaceAuthNewGroupId.value
+			(item) => item.roleId == spaceAuthNewGroupId.value
 		)
 	) {
 		spaceAuthNewGroupId.value = ''
 		return
 	}
 	spaceAuthGroupList.value.push({
-		groupId: spaceAuthNewGroupId.value,
+		roleId: spaceAuthNewGroupId.value,
 		editPage: 0,
 		commentPage: 0,
 		deletePage: 0,
@@ -190,25 +191,26 @@ const saveGroupSpaceAuth = () => {
 		authList: JSON.stringify(spaceAuthGroupList.value),
 	}
 	pageApi.spaceAuthAssign(param).then((json) => {
+    spaceAuthDialogVisible.value = false;
 		ElMessage.success('授权成功！')
 	})
 }
 const manageUserGroup = () => {
-	let manageUrl = location.href.substring(0, location.href.indexOf('/doc-wiki')) + '#/console/userGroupList'
+	let manageUrl = location.origin + '/setting/role'
 	window.open(manageUrl, '_blank')
 }
 const deleteGroupSpaceAuth = (row) => {
 	spaceAuthGroupList.value = spaceAuthGroupList.value.filter(
-		(item) => item.groupId != row.groupId
+		(item) => item.roleId != row.roleId
 	)
 }
 const editSpaceAuth = (row) => {
 	editSpaceId.value = row.id
 	spaceAuthNewGroupId.value = ''
 	spaceAuthGroupList.value = []
-	userApi.userGroupList().then((json) => {
-		searchGroupList.value = json.data || []
-		searchGroupList.value.forEach((item) => (searchGroupMap.value[item.id] = item.name))
+  roleApi.listRole({}).then((json) => {
+		searchGroupList.value = json.data.records || []
+		searchGroupList.value.forEach((item) => (searchGroupMap.value[item.roleId] = item.roleName))
 	})
 	pageApi.spaceAuthList({spaceId: row.id}).then((json) => {
 		spaceAuthGroupList.value = json.data || []
