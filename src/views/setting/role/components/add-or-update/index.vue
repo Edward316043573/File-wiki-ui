@@ -230,11 +230,11 @@ function cancel() {
 
 const init = async (data) => {
   visible.value = true;
+  debugger
   nextTick(() => {
     if (data) {Object.assign(form, data);
-      if (data.menuIds && data.menuIds.length > 0) {
         selectedMenuIds.value = data.menuIds;
-      }}
+      }
     getMenuList()
   })
 };
