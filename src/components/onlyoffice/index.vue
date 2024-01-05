@@ -37,7 +37,7 @@
 </template>
 
 <script setup>
-import {ref, watch, onBeforeMount, onMounted, nextTick, defineEmits} from 'vue';
+import {ref, watch, onBeforeMount, onMounted, nextTick, defineEmits, defineProps} from 'vue';
 import {onBeforeRouteUpdate, useRouter, useRoute} from "vue-router";
 import {
   createOfficeFile,
@@ -53,7 +53,8 @@ import Comment from '@/views/page/show/Comment.vue'
 import PageZan from '@/views/page/show/PageZan.vue'
 import {Close as ElIconClose} from '@element-plus/icons-vue'
 import pageApi from '@/api/page'
-import {mavonEditor} from "mavon-editor";
+import Annex from '@/views/page/show/Annex.vue'
+import Navigation from '@/views/page/components/Navigation.vue'
 
 let storeDisplay = useStoreDisplay();
 let storePage = useStorePageData();
@@ -69,13 +70,19 @@ let pageHistoryChoice = ref({});
 let pageHistoryList = ref([]);
 let pageHistoryPageNum = ref(1);
 
+const props = defineProps({
+  spaceInfo: Object,
+});
 let emit = defineEmits(['switchSpace', 'changeExpandedKeys', 'loadPageList']);
-
 
 onBeforeRouteUpdate((to) => {
   initQueryParam(to);
 });
 
+onMounted(() => {
+  storeDisplay.currentPage = 'view';
+  initQueryParam(route);
+});
 const closeActionTab = () => {
   storeDisplay.commentShow = false;
   clearHistory();
@@ -302,6 +309,9 @@ const showDocDetail = () => {
     emit('switchSpace', wikiPage.value.spaceId);
     // 调用父方法展开目录树
     emit('changeExpandedKeys', data.userFileId);
+    setTimeout(() => {
+      createNavigationHeading();
+    }, 500);
     storePage.pageInfo = wikiPageRes;
     storePage.pageAuth = wikiPageAuth.value;
   })
