@@ -123,7 +123,7 @@ let showImagePreview = ref(false);
 let showImagePreviewList = ref([]);
 let markdownToolbars = ref({fullscreen: true, readmodel: true,});
 // 下载为Word
-let downloadFormParam = ref({url: 'zyplayer-doc-wiki/page/download', param: {},});
+let downloadFormParam = ref({url: 'wiki/page/download', param: {},});
 
 let route = useRoute();
 let router = useRouter();
@@ -143,68 +143,6 @@ onMounted(() => {
 	initQueryParam(route);
 });
 
-const getSearchUserList = (query) => {
-	if (query == '') return
-	pageAuthUserLoading.value = true
-	userApi.getUserBaseInfo({search: query}).then((json) => {
-		searchUserList.value = json.data || []
-		pageAuthUserLoading.value = false
-	})
-}
-const addPageAuthUser = () => {
-	if (pageAuthNewUser.value.length <= 0) {
-		ElMessage.warning('请先选择用户')
-		return
-	}
-	if (
-		!!searchUserList.value.find(
-			(item) => item.userId == pageAuthNewUser.value
-		)
-	) {
-		pageAuthNewUser.value = ''
-		return
-	}
-	let userName = ''
-	for (let i = 0; i < searchUserList.value.length; i++) {
-		if (pageAuthNewUser.value == searchUserList.value[i].id) {
-			userName = searchUserList.value[i].userName
-			break
-		}
-	}
-	pageAuthUserList.value.push({
-		userName: userName,
-		userId: pageAuthNewUser.value,
-		editPage: 0,
-		commentPage: 0,
-		deletePage: 0,
-		pageFileUpload: 0,
-		pageFileDelete: 0,
-		pageAuthManage: 0,
-	})
-	pageAuthNewUser.value = ''
-}
-const saveUserPageAuth = () => {
-	let param = {
-		pageId: wikiPage.value.id,
-		authList: JSON.stringify(pageAuthUserList.value),
-	}
-	pageApi.assignPageUserAuth(param).then(() => {
-		ElMessage.success('保存成功！')
-	})
-}
-const notOpen = () => {
-	ElMessage.warning('暂未开放')
-}
-const deleteUserPageAuth = (row) => {
-	let pageAuthUserList = [];
-	for (let i = 0; i < pageAuthUserList.value.length; i++) {
-		let item = pageAuthUserList.value[i];
-		if (item.userId !== row.userId) {
-			pageAuthUserList.push(pageAuthUserList.value[i]);
-		}
-	}
-	pageAuthUserList.value = pageAuthUserList;
-}
 const closeActionTab = () => {
 	storeDisplay.commentShow = false;
 	clearHistory();

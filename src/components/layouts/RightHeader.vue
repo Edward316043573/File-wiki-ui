@@ -35,31 +35,31 @@
 					</span>
             <template #overlay>
               <a-menu>
-                <a-menu-item @click="editWikiAuth" v-if="storePage.pageAuth.canConfigAuth === 1">
-                  <el-icon>
-                    <ElIconSCheck/>
-                  </el-icon>
-                  权限设置
-                </a-menu-item>
-                <a-menu-item @click="showOpenPage" v-if="storeSpace.spaceInfo.openDoc === 1">
-                  <el-icon>
-                    <ElIconShare/>
-                  </el-icon>
-                  查看开放文档
-                </a-menu-item>
-                <a-menu-item @click="showMobileView" v-if="storeSpace.spaceInfo.openDoc === 1">
-                  <el-icon>
-                    <ElIconMobilePhone/>
-                  </el-icon>
-                  手机端查看
-                </a-menu-item>
-                <a-menu-item @click="exportWord">
-                  <el-icon>
-                    <ElIconDownload/>
-                  </el-icon>
-                  导出为Word
-                </a-menu-item>
-                <a-menu-divider/>
+<!--                <a-menu-item @click="editWikiAuth" v-if="storePage.pageAuth.canConfigAuth === 1">-->
+<!--                  <el-icon>-->
+<!--                    <ElIconSCheck/>-->
+<!--                  </el-icon>-->
+<!--                  权限设置-->
+<!--                </a-menu-item>-->
+<!--                <a-menu-item @click="showOpenPage" v-if="storeSpace.spaceInfo.openDoc === 1">-->
+<!--                  <el-icon>-->
+<!--                    <ElIconShare/>-->
+<!--                  </el-icon>-->
+<!--                  查看开放文档-->
+<!--                </a-menu-item>-->
+<!--                <a-menu-item @click="showMobileView" v-if="storeSpace.spaceInfo.openDoc === 1">-->
+<!--                  <el-icon>-->
+<!--                    <ElIconMobilePhone/>-->
+<!--                  </el-icon>-->
+<!--                  手机端查看-->
+<!--                </a-menu-item>-->
+<!--                <a-menu-item @click="exportWord">-->
+<!--                  <el-icon>-->
+<!--                    <ElIconDownload/>-->
+<!--                  </el-icon>-->
+<!--                  导出为Word-->
+<!--                </a-menu-item>-->
+<!--                <a-menu-divider/>-->
                 <a-menu-item @click="deleteWikiPage" v-if="storePage.pageAuth.canDelete === 1" class="delete">
                   <el-icon>
                     <ElIconDelete/>
