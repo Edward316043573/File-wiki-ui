@@ -246,8 +246,8 @@ const deleteWikiPage = (share) => {
 		let param = {pageId: optionPageId.value};
     pageDelete(param).then(() => {
 			ElMessage.success('已删除')
-			doGetPageList(null)
-		});
+      window.location.href = '/home?spaceId=' + storeSpace.chooseSpaceId
+    });
 	}).catch(() => {
 	});
 }
