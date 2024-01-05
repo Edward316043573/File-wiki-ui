@@ -104,6 +104,29 @@ const router = createRouter({
     routes:routes
 
 })
+import { useTokenStore } from '@/stores/token.js';
+import {ElMessageBox, ElMessage} from "element-plus";
+import {isRelogin} from "../utils/request";
+
+
+router.beforeEach((to, from, next) => {
+    const store = useTokenStore();
+    // 检查用户是否已登录
+    if (store.token || to.path === '/login') {
+        next() // 继续正常的路由导航
+    } else {
+        ElMessageBox.confirm('尚未登录，无法访问该界面', '系统提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+        }).then(() => {
+            next('/login') // 重定向到登录页面
+        }).catch(() => {
+            next('/login') // 重定向到登录页面
+        });
+
+    }
+})
 
 // 导出路由
 export default router
