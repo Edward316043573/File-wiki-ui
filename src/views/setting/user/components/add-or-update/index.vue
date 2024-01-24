@@ -7,7 +7,7 @@
             <el-input v-model="form.userName" placeholder="请输入用户名称" maxlength="30"/>
           </el-form-item>
         </el-col>
-        <el-col :span="12">
+        <el-col :span="12" v-if="form.userId == null">
           <el-form-item label="用户密码" prop="password">
             <el-input v-model="form.password" placeholder="请输入用户密码" type="password" maxlength="20" show-password/>
           </el-form-item>

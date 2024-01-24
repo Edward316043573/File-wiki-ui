@@ -43,6 +43,7 @@ const exportPDF = (flag) => {
         type: 'success',
       })
     }).catch((e) => {
+      loading.close()
       ElNotification({
         title: 'Error',
         message: '导出失败' + e.message,
@@ -66,6 +67,7 @@ const exportPDF = (flag) => {
         type: 'success',
       })
     }).catch((e) => {
+      loading.close()
       ElNotification({
         title: 'Error',
         message: '导出失败' + e.message,
