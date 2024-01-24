@@ -14,7 +14,7 @@
         <el-form-item>
           <el-button @click="handleQuery">搜索</el-button>
           <el-button @click="resetQuery">重置</el-button>
-          <el-button @click="onAddOrUpdate">新增</el-button>
+          <el-button @click="onAddOrUpdate(null)">新增</el-button>
         </el-form-item>
       </div>
     </el-form>

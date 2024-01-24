@@ -90,9 +90,9 @@
 </template>
 
 <script setup>
-import {ref, reactive, onMounted, nextTick} from 'vue';
+import {nextTick, onMounted, reactive, ref} from 'vue';
 import roleApi from '@/api/role';
-import {addUser,updateUser} from '@/api/user'
+import {addUser, updateUser} from '@/api/user'
 import {ElMessage} from 'element-plus'
 
 const emit = defineEmits(['refresh']);

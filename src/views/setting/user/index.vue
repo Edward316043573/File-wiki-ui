@@ -21,7 +21,7 @@
         <el-button @click="resetQuery">重置</el-button>
       </el-form-item>
       <el-form-item>
-        <el-button @click="onAddOrUpdate">新增</el-button>
+        <el-button @click="onAddOrUpdate(null)">新增</el-button>
       </el-form-item>
     </el-form>
     <el-table :data="tableData">
@@ -120,6 +120,7 @@ function handleDelete(row) {
               const code = response.code || 200;
               if (code === 200) {
                 ElMessage.success('删除成功');
+                getUserList();
               } else {
                 ElMessage.error('删除失败: ' + response.msg);
               }

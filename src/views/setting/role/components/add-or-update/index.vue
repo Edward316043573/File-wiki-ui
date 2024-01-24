@@ -224,13 +224,12 @@ function submitForm() {
 
 /** 取消按钮 */
 function cancel() {
-  open.value = false;
+  visible.value = false;
   reset();
 }
 
 const init = async (data) => {
   visible.value = true;
-  debugger
   nextTick(() => {
     if (data) {Object.assign(form, data);
         selectedMenuIds.value = data.menuIds;
